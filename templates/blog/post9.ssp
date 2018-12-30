@@ -1,0 +1,97 @@
+#set (name)
+    CS373 Fall 2017: Week 9
+#end
+
+#set (title)
+    CS373 Fall 2017: Week 9
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-blog#end
+
+#set (bodyElem)
+<div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Week 9: 23/10 - 29/10</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src="/images/hacktx.jpg" border="0" alt="" />
+        </div>
+        <div class="mdl-card__supporting-text">
+            <strong>HackTX picture</strong>
+            <span>in front of their logo with my teammates at the Omni Hotel.</span>
+        </div>
+        <div class="mdl-grid portfolio-copy">
+            <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+                <p>Finally past the halfway point of the semester! There's a lot that's coming up as the semester comes
+                    to a close, and I have to make life decisions. Let's delve right in!</p>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+                <img class="article-image" src=" /images/selfie.png" border="0" alt="" />
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This past week was filled with news. First, I found out I got two job offers, one from Twitter
+                    Seattle, and one from Facebook Dublin! I'm definitely very excited for both, and I spent a lot of
+                    time last week discussing, thinking, and weighing my current options. We also had an Artificial
+                    Intelligence midterm, which took up a lot of time.</p>
+                <p>The second thing for this week was HackTX. UT's yearly hackathon kicked off this weekend! This is the
+                    fourth, and probably last HackTX I'll get to go to. I worked together with another 3 friends. We
+                    created a version of the game Zork for Cortana and Slack, definitely a very fun experience. We had
+                    to get a lot of moving parts, including a C# server, a Python/Flask web service, and a C executable
+                    run with Python. We managed to get top 10 in the hackathon, which was a great way to finish what for
+                    3 of us is our last year!</p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's in your way?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This next week my largest blocker is decision making. The plan is to have decided where I want to
+                    work full-time by Monday. Included in this is rejecting one company, see if it results in a counter
+                    offer, and see if that would change my decision. I want to see how it plays out in the next couple
+                    of weeks. Otherwise, I have one more exam coming up for Government, a few homework, so I mostly need
+                    to keep on track.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What will you do next week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>As I mentioned in the last class, I have to make a decision on my offers by the beginning of the
+                    week. I'll be doing that, working on an Artificial Intelligence, finish both a Government and a
+                    World Literature exam, and hopefully catch up with all the missed homework I didn't do this
+                    weekend.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my experience of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>I found this week's lecture a little bit slower than previous weeks, but I still learned quite a few
+                    things. In particular, I hadn't had a chance to really study relational algebra before this class.
+                    I've had some experience with SQL since it's one of those tools you inevitably bump into when you're
+                    doing any web service, website or any other web related project. However, I had never had a chance
+                    to formalize a lot of the topics, and in particular what the different kind of joins are, what their
+                    outputs are. For example, I used to be under the impression that inner and natural joins where
+                    equivalent, because they can be made to be equivalent. However, the devolution when there is nothing
+                    to join on is quite different.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my pick-of-the-week or tip-of-the-week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>Today, what I have is not so much a tip, as it is what I would consider a great investment/thing to
+                    buy right now. Currently, Humble Bundle has an amazing book deal. For those of you who don't know
+                    Humble Bundle, they're essentially a charity that sells amazing game and book bundles for any price
+                    you name and donates most of the proceeds to charity (you even get to choose how much to donate to
+                    who). They're generally a great way to both donate and get to try out new games you might not
+                    otherwise. The book bundle I mentioned is a great cloud computing one. If you've ever wanted to
+                    learn AWS, Kubernetes, Docker, or other such technologies, you can get the books here:
+                    <a href="https://www.humblebundle.com/books/cloud-computing-books">https://www.humblebundle.com/books/cloud-computing-books</a>.
+                    Enjoy!</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+#end

@@ -1,0 +1,77 @@
+#set (name)
+Twitcher - Project
+#end
+
+#set (title)
+Twitcher - Project
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-projects#end
+
+#set (bodyElem)
+  <div class="mdl-grid portfolio-max-width">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Robot Car</h2>
+      </div>
+      <div class="mdl-card__media">
+        <img class="article-image" src="/images/car03-narrow.jpg" border="0" alt="">
+      </div>
+      <div class="mdl-card__supporting-text">
+        <strong>Early Version</strong>
+        <span>of the Robot Car, making use of a serial motor controller.</span>
+      </div>
+      <div class="mdl-grid portfolio-copy">
+
+        <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">How does the software work?</h3>
+        <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+          <p>The software for this car is written in C++ for the Robot Operating System (ROS). In this
+            system, you can create separate programs called <em>nodes</em>. They all communicate through
+            defined topics and services.</p>
+          <p>This car has a node that sends commands directly to the motor controllers and creates a
+            service that sets the speed and direction settings for each motor. A separate node uses
+            that service to provide a drive service, where you can provide a direction and speed for
+            the entire car.</p>
+          <p>The great thing about ROS is you can add all sorts of services and make them entirely modular
+            and detached. These nodes can create a topic for encoders, ultrasonic sensors, more motors,
+            an HTTP client for twitter, you name it!</p>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <img class="article-image" src=" /images/car02.jpg" border="0" alt="">
+        </div>
+
+        <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">How does the hardware work?</h3>
+        <div class="mdl-cell mdl-cell--6-col">
+          <img class="article-image" src=" /images/car01.jpg" border="0" alt="">
+        </div>
+        <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+          <p>The motors are a standard set of <a href="https://www.sparkfun.com/products/13302">Sparkfun
+            hobby gearmotors</a>. These are controller by two,
+            <a href="https://www.sparkfun.com/products/9457">Sparkfun tb6612fng motor controllers</a>.
+            These are hooked up directly to the Raspberry Pi output pins, and controlled using software
+          PWM.</p>
+          <p>The power was an interesting challenge. There are two power sources for the robot: One used
+            by the motors and the controllers (motor power), the other used by the Raspberry Pi (main
+            power). The first is provided by a single 9V battery. The second is powered by a cellphone
+            battery pack, mostly because Raspberry Pi's were not technically designed by a regular battery
+            and so can only be provided power through their micro-USB port. Yay bodging!</p>
+        </div>
+
+      <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Want to look at the code?</h3>
+      <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+        <p>Download the code here:</p>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"  onclick="window.location.href='https://github.com/rdelfin/robot_car_controllers'">
+          <i class="material-icons">&#xE2C4;</i>
+        </button>
+      </div>
+
+    </div>
+    </div>
+
+  </div>
+#end

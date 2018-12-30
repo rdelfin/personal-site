@@ -1,0 +1,131 @@
+#set (name)
+    CS373 Fall 2017: Week 10
+#end
+
+#set (title)
+    CS373 Fall 2017: Week 10
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-blog#end
+
+#set (bodyElem)
+<div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Week 10: 30/10 - 5/11</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src="/images/royal_albert_hall.jpg" border="0" alt="" />
+        </div>
+        <div class="mdl-card__supporting-text">
+            <strong>The Royal Albert Hall</strong>
+            <span>near Hyde Park, London, for lack of a more relevant picture I've taken.</span>
+        </div>
+        <div class="mdl-grid portfolio-copy">
+            <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+                <p>So far it looks like this week and next week is panning out to be two pretty
+                    standard weeks. A lot to do, but nothing particularly large. With that being
+                    said, let's jump straight in!</p>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+                <img class="article-image" src=" /images/selfie.png" border="0" alt="" />
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>The biggest thing that happened this week was how my job hunt has progressed. I
+                    have finally decided on accepting the offer from Facebook Dublin! It was
+                    definitely a hard decision. It was hard to compare the Facebook and Twitter
+                    offers, since they were for two entirely different countries. This made a huge
+                    difference in salary. This made me truly look at what my priorities and
+                    long-term goals were. For example, I realized that the name recognition of
+                    Facebook would go a long way on my resume. The role itself was also a huge
+                    selling point for me. My role will be that of a Production Engineer, which
+                    means I'll get to work directly with a lot of distributed systems, and help me
+                    become more familiar with how to work with Linux. This is something I value a
+                    lot. On top of that, the location was somewhere I'm interested in going, and
+                    Facebook seems to make it relatively easy to move from office to office. This
+                    is what helped me make the call.</p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's in your way?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>One of the big things that are in my way for the foreseeable future is that I
+                    have to get started figuring out how immigration is going to work in Ireland. I
+                    had been planning for how I would go through the immigration process in the US
+                    (and I am pretty informed on some of the details of that). However, now that
+                    I'm going to Ireland instead, I need to start researching how my long-term plan
+                    would look like there. I don't know how residence, citizenship, and visas work
+                    there. I'll have someone from Facebook help me out on that, but I'm currently
+                    unsure.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What will you do next week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This next week I have a mix of projects, homework, and emails to attend to.
+                    There's, of course, the IDB project for my Software Engineering class (if you
+                    want to take a look at it, go to
+                    <a href="http://phonedb.info/">phonedb.info</a>. We were having some issues
+                    getting it all to interlock together properly, but we shouldn't have that long
+                    to go. On top of that, there are a few classes (such as world literature) where
+                    I've gotten a bit behind. I'm going to dedicate this week to get back on track
+                    on those.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my experience of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week was spent on wrapping up our discussion on the
+                    student-application-college schema by talking about subqueries. While a lot of
+                    this I had seen before when working with SQL, I will admit I was momentarily
+                    taken off guard with some of the subqueries. We then talked about regular
+                    expressions. Again, I've used these tools before (though admittedly not in
+                    python), so there wasn't much of discussion. One thing did come up though when
+                    talking to one of my classmates, Simon. That was the topic of greedy vs lazy
+                    regex parsers. I'll get to that in my tip of the week. The last day of the week
+                    we talked about Set Difference and aggregation functions. I found this lecture
+                    more interesting since these are tools that I had not used as often in SQL.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my pick-of-the-week or tip-of-the-week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week I want to talk about differences between different regex parsers. When
+                    using Regular Expressions (aka regex) you might be tempted to think that,
+                    because they've become a standard and equal across all implementations right?
+                    Well, like with most things in software engineering you'd be wrong.</p>
+
+                <p>The example I'm going to go over is the difference between greedy and lazy regex
+                    parsers. So suppose you have the following string:<p>
+                <code>
+                &lt;mytag&gt;This is text!&lt;/mytag&gt;
+                </code>
+                <p>So you write the following regex to match both tags:</p>
+                <code>
+                &lt;.+&gt;
+                </code>
+                <p>And call it a day. However, what you won't realize is this is gonna fail. You
+                    can look at the example <a href="http://regexr.com/3h453">here</a> to see what
+                    actually happens. Do you see it? Yeah, it's outlining that ENTIRE string. Why?
+                    Well, you see, a lot (though not all) regex implementations are what we call
+                    <em>greedy</em>. In other words, for quantifiers like <tt>.</tt>, <tt>+</tt>
+                    and <tt>?</tt> they will try and match as much as possible. This includes
+                    Python's implementation. The particular solution here is to use a special token
+                    after the <tt>+</tt>, which is the <tt>?</tt> symbol (yes, confusing I know).
+                    This tells the regex parser to evaluate the regex greedily. This results in
+                    this new regex:</p>
+                    <code>
+                    &lt;.+?&gt;
+                    </code>
+                    <p>You can see the resulting behaviour
+                    <a href="http://regexr.com/3h456">here</a>. I hope you found this
+                    interesting!</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+#end

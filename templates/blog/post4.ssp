@@ -1,0 +1,147 @@
+#set (name)
+    CS373 Fall 2017: Week 4
+#end
+
+#set (title)
+    CS373 Fall 2017: Week 4
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-blog#end
+
+#set (bodyElem)
+<div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Week 4: 18/9 - 24/9</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src="/images/zocalo.jpg" border="0" alt="" />
+        </div>
+        <div class="mdl-card__supporting-text">
+            <strong>The Mexico City Zócalo</strong>
+            <span>during the holiday season.</span>
+        </div>
+        <div class="mdl-grid portfolio-copy">
+            <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+                <p>This week's blog will start with a bit of a somber note. This past Tuesday at 1:14 pm, just as Mexico
+                    City was remembering a devastating earthquake on September 19th, 1985, the city's earthquake alarm
+                    went off throughout the massive metropolis, just as a magnitude 7.2 earthquake hit, originating only
+                    100km away, in the nearby state of Puebla. The proximity and speed of the earthquake caught the city
+                    by surprise. It leveled around 39 buildings, some collapsing until after the earthquake hit, and has
+                    so far left a death toll of 320 people over 5 states. This comes only two weeks after a magnitude
+                    8.1 earthquake hit the city, and destroyed multiple towns in the states of Oaxaca and Chiapas.</p>
+                <p>Events such as these tend to bring out either the best or the worst in humanity, and sometimes even
+                    both. Thankfully, this entire week I've heard amazing stories coming out of Mexico, of how the
+                    entire city mobilized almost immediately to provide as much help as possible to everyone in need, to
+                    help get people out of the rubble. I heard stories of stores donating their entire inventory to help
+                    people most in need, and of people helping out the rescue crews by providing them with food, water
+                    and anything they might need to get as many people as they can into safety. It has truly been
+                    astonishing to see how a city can work together to get itself back on their feet.</p>
+                <p>I'm going to continue now with my blog, but before I do, I'll ask that, if you have the ability to,
+                    that you help out by donating to the multiple organizations that have been providing help and
+                    assistance throughout this crisis. One such organization is the Mexican Red Cross. You can donate to
+                    their cause <a href="https://cruzrojadonaciones.org/">here</a>. It's important to note that all
+                    donations are in Mexican Pesos, not US Dollars.</p>
+                <p>Now, time to start the blog.</p>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+                <img class="article-image" src=" /images/selfie.png" border="0" alt="" />
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>I spent this last week, much like most other weeks beforehand, catching up with homework. A mix of
+                    Artificial Intelligence, the new Software Engineering project and the regular readings I need to do
+                    for all my core curriculum classes has overloaded me more than I expected. I get the feeling this is
+                    mostly due to bad time management skills on my part. I've thought about a few ways of getting back
+                    on track with my time management. Particularly, dividing my time up better and checking reminders of
+                    what I need to do more often should help me concentrate on the task at hand better.</p>
+                <p>I also had a lot of new information in my recent job hunt. This week I got rejected from Google. This
+                    came as a surprise since the interviews went very smoothly, and as a converting intern, I hoped for
+                    better chances, even if I was switching roles from Product Management to Software Engineering. That
+                    being said, there are other interviews to think about. I also had an interview with RetailMeNot, for
+                    which I got a response the next day, where they said I did well and would be going onto final rounds
+                    Monday. Let's see how that goes...</p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's in your way?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>My biggest roadblocks right now are all the different due dates I have coming up next week, and the
+                    little amount of time I'll have next week. I'll explain better in the next section, but basically, I
+                    have a lot of things coming up next week and I'll basically have 2 days lopped off where I won't be
+                    available to do those things.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What will you do next week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This is probably the most interesting section this week. This is what my week looks like. I have a
+                    full day interview on Monday at RetailMeNot (in Austin), a full day interview on Friday in Microsoft
+                    (this time in Redmond, WA), and a phone interview Thursday morning (aka 8 am) with Facebook. On top
+                    of that, I have a project due for Software Engineering, a research proposal due this week, and all
+                    my other usual homework for my other classes. In other words, this week will be an interesting
+                    challenge.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my experience of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week we had a guest speaker come in from Google to show us how GCP, the cloud platform we'll be
+                    using for our project, works. We also went over a general overview of the project, and finally
+                    talked about operators in Python. Personally, this last lecture had one particularly interesting
+                    moment. We were talking about operators you can perform on collections in Python. In particular, the
+                    <tt>+=</tt> operator came up. On lists, it makes perfect sense that you can use this. Lists are
+                    mutable, so adding elements to the end of the list makes perfect sense. However, I did not expect
+                    this to be valid for tuples. As non-mutable objects, you'd expect this operation to make no sense,
+                    but python makes it equivalent to adding two tuples and setting the result to one of the two
+                    variables. In other words, it creates a new tuple. This is confusing on various levels because it
+                    makes you notice two conflicting things about python:</p>
+                <ul>
+                    <li>For tuple, an operation <tt>a += b</tt> acts exactly as <tt>a = a + b</tt>, creating a new list.
+                        Therefore, python should do this for all other collections to be consistent.</li>
+                    <li>For lists, the operation <tt>a += b</tt> acts in an entirely different way as
+                        <tt>a = a + b</tt>. Namely, the first will modify the list contained in <tt>a</tt>, whereas the
+                        second will create an entirely new list of value <tt>a + b</tt> and store it into
+                        <tt>a</tt>.</li>
+                </ul>
+                <p>This second point might seem like a useless difference, but it's extremely important. In particular,
+                    using the second operation will change the reference being held in <tt>a</tt>. If you're passing in
+                    a list as a parameter to modify it and use as a "return value", using the second operation will get
+                    rid of the reference, whereas the first will do what you intend. What does this mean? Does the
+                    <tt>+=</tt> sign fall automatically from overloading the <tt>+</tt> sign? Can you choose to override
+                    the <tt>+=</tt> separately, or do you have to implement both? I have only one answer: ¯\_(ツ)_/¯</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my pick-of-the-week or tip-of-the-week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week I want to give a tip on a completely non-technical topic. Namely, earthquake safety. What
+                    should you do if you're inside a building during an earthquake and can't get out? Even in Mexico
+                    City, a population that is generally well informed on earthquake safety, and has a city-wide
+                    earthquake drill every year on September 19th (ironically only 2 hours before the 7.2 earthquake hit
+                    the city), sometimes has some myths going around regarding what to do in this situation.</p>
+                <p>A commonly circulated myth is that of the triangle of life. It basically states that the best place
+                    to be during an earthquake is right next to a piece of furniture, right where the corner of the
+                    furniture and the ground form a triangle. The claim is that, in the case of complete building
+                    collapse, the piece of furniture is likely to stop a large slab of debris from squashing you, since
+                    that piece of furniture will hold the piece up and leave a triangle with a pocket of air next to it.
+                    This is based on a study made in 2010 by a man named Doug Copp where he collapsed a building with a
+                    bunch of mannequins and compared how many were squashed by debris when they did the standard "duck
+                    and cover" versus his triangle of life technique.</p>
+                <p>This study, however, has one fatal flaw. The problem is that most deaths during an earthquake aren't
+                    caused by debris squashing you down, but from debris just falling and hitting you. The triangle of
+                    life will not save you there. This has been discredited by multiple reputable sources, such as the
+                    Red Cross, UNESCO, FEMA, and countless other organizations.</p>
+                <p>If you find yourself inside a building you can't evacuate during an earthquake, please follow
+                    guidelines such as those available in <a href="https://www.ready.gov/earthquakes">this ready.gov
+                    page</a>. Basically don't run outside once the earthquake hits, drop to the ground, protect your
+                    head and neck, if you're at risk of being hit by falling debris take cover under a sturdy desk or
+                    table, and do not stand underneath a doorway for protection, whatever people tell you.</p>
+            </div>
+        </div>
+    </div>
+
+    </div>
+#end

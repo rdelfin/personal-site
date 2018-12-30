@@ -1,0 +1,140 @@
+#set (name)
+    CS373 Fall 2017: Week 12
+#end
+
+#set (title)
+    CS373 Fall 2017: Week 12
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-blog#end
+
+#set (bodyElem)
+<div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Week 12: 13/11 - 19/11</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src="/images/soco.jpg" border="0" alt="" />
+        </div>
+        <div class="mdl-card__supporting-text">
+            <strong>Looking down Congress</strong>
+            <span>from the intersection of South Congress Avenue and Elizabeth Street, in Austin Texas.</span>
+        </div>
+        <div class="mdl-grid portfolio-copy">
+            <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+                <p>At this point, I can feel the semester wrapping up. Everything seems to be
+                    speeding up, Austin is getting cold (though definitely not cold enough),
+                    Thanksgiving is just around the corner, and you can smell the panic in the air
+                    as you walk around campus. Let's go through this week's blog then!</p>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+                <img class="article-image" src=" /images/selfie.png" border="0" alt="" />
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>I spent this past week working on a lot of homework, catching up on research
+                    work, and trying not to get sick. Homework side, I had to work on the second to
+                    last AI project (besides the competition). I also worked on getting ahead on my
+                    world literature readings. I really enjoyed this week's readings, since they
+                    included one of my all-time favorite authors, Gabriel García Márquez.</p>
+                <p>On the second part, I worked further on my research by finishing part of a
+                    simulator for a robot environment in our lab. Basically, I need to be able to
+                    simulate whether people will answer a given question posed by the robot as it
+                    travels around our lab. This ends up being a more difficult task than it would
+                    seem since I have to define it as a Markov Decision Process, or MDP. This you
+                    have to reduce the representation down to a state, such that your state fully
+                    describes the probability of changing state. In other words, you have to define
+                    the world state in such a way that giving you information further in the past
+                    should not give you more information about your next likely state. Since I've
+                    already gone into more detail than is necessary, suffice it to say, it's proved
+                    hard to define such a state and the corresponding transitions in this
+                    scenario.</p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's in your way?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>There are quite a few things in my way this week. First off, there's the
+                    Software Engineering Project that's due the Tuesday after Thanksgiving that we
+                    need to advance on. There's also some blockers happening in my research. I need
+                    more time to work on it, and I don't know where to find said time. Finally, I
+                    got a sick this past week, and it hit my productivity very hard. I basically
+                    lost all of Friday, which set me back on my homework.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What will you do next week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This next week, I will partially dedicate to catching up, as usual, with a lot
+                    of my homework. There's a lot of readings for my world literature class I need
+                    to do, and a lot of research I need to work on. However, there's also
+                    Thanksgiving. I'm spending the long weekend with some family out in San
+                    Antonio. Since I'll be moving out of the US soon, this is also going to be the
+                    last time I'll probably get to visit them for an extended amount of time in,
+                    well, a long time.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my experience of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>I have a particular set of comments for this week's class. First off, I want to
+                    say that Wednesday's Ethics class was extremely interesting. I found it amazing
+                    how much the guest speakers were able to cover in such a short period of time.
+                    That definitely made me want to take Elaine and Cline's class. I find it really
+                    unfortunate that they don't give the class anymore.</p>
+                <p>The second comment was on the class on Friday. I want to say that I found the
+                    topic of reflection interesting. For context, here's the setup. Basically, we
+                    had a set of classes representing pricing policies for rental movies
+                    ("NewReleasePrice", "ChildrenMoviePrice", etc.). Each movie instance has a
+                    calculate price method which took in an int and depending on the value of the
+                    int, it grabbed a different pricing policy. To avoid using a switch statement,
+                    we changed the interface to take in a string with the pricing policy class name
+                    and instantiated a new version of the class with that name, avoiding any ugly
+                    switches and if's altogether.</p>
+                <p>I had never instanciated a class the way we did in class, and it definitely is
+                    an interesting way of letting you swap out classes more dynamically. However, I
+                    felt conflicted with how we used class names as strings as identifiers for each
+                    class to instantiate. If there's one piece of advice I've heard consistently,
+                    across the board, about object-oriented compiled (or in this case, just-in-time
+                    compiled) languages, it is that, if you can catch an error at compile time,
+                    never let that error be handled at runtime. What this basically says is that
+                    never get rid of type information that the compiler could use to better avoid
+                    bugs. Usually, this is given in the context of casting a class to a derived
+                    class. However, here it presents a different problem. Particularly, what if the
+                    user of our class passes in an invalid string? Usually, this would get caught
+                    at compile time, when you use an invalid class name. However, since we're using
+                    strings, it won't realize the error until instantiation time. This is terrible
+                    and just begging for bugs. Ideally, what you want to do is pass in an instance
+                    of a pricing policy in an interface/abstract class, and call that. For this
+                    particular scenario that would be the safest, best course of action.</p>
+                <p>This is of course not to say that there are no use cases for reflection. The one
+                    use case that comes to mind is allowing for plugins to be installed in your
+                    Java App. A great example of this is Minecraft, a game written entirely in
+                    Java. You can write "mods" for this, and I'm willing to bet the way they detect
+                    and execute these mods is by using reflection. However, this does not mean that
+                    you should use this in a tight-knit environment where your users can contribute
+                    and use your code directly, especially if your users end up being you. The
+                    age-old adage still applies: KISS (Keep it simple stupid).</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my pick-of-the-week or tip-of-the-week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week I'll recommend a site I think anyone interested in Machine Learning,
+                    and specifically Artificial Neural Networks needs to try out. It's the Neural
+                    Network Playground (a Tensorflow site). You can find it here:
+                    <a href="http://playground.tensorflow.org/">playground.tensorflow.org</a>.
+                    Basically, it lets you play around with different data sets, hyperparameters,
+                    and parts of a neural network and see it train in real time. It also provides a
+                    lot of visualizations of what each neuron and weight is doing. It really helps
+                    get an intuitive feel for neural networks if you're struggling to understand
+                    how they work.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+#end

@@ -1,0 +1,125 @@
+#set (name)
+    CS373 Fall 2017: Week 6
+#end
+
+#set (title)
+    CS373 Fall 2017: Week 6
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-blog#end
+
+#set (bodyElem)
+<div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Week 6: 2/10 - 8/10</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src="/images/london_city_hall.jpg" border="0" alt="" />
+        </div>
+        <div class="mdl-card__supporting-text">
+            <strong>London City Hall</strong>
+            <span>with Tower Bridge in the background, in Southwark, London.</span>
+        </div>
+        <div class="mdl-grid portfolio-copy">
+            <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+                <p>Well, there's definitely a lot that happened this past week. My job search has advanced
+                    significantly, homework was turned in, and I basically went through my classes. There's not much
+                    else to add here this week, so let's jump right in!</p>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+                <img class="article-image" src=" /images/selfie.png" border="0" alt="" />
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>There were quite a few significant events for me this past week. I started the week on Monday with an
+                    email from my Micorosft recruiter saying I got an offer! I was very excited for this, both because
+                    it's the first offer I've gotten thus far, and because it's somewhere I'd be genuinely interested in
+                    working at. I'd be working on the identity team, a team in charge of ensuring that identification,
+                    authentication, and authorization happens smoothly across all Microsoft products, including Windows
+                    login, Active Directory, Azure, among others.</p>
+                <p>The week was quickly followed by a Facebook interview for a role as a Production Engineer (read: site
+                    reliability engineer mixed with a software engineer). This is a role I'm also very interested in
+                    since it would require me to apply my knowledge in systems, networks, and Linux, all of which I
+                    enjoy. To top it off, the role will potentially be in London, where I've been wanting to live for a
+                    long time. I went through two rounds of interviews, one programming, and one system, and I got to
+                    the next rounds, waiting for the interview to be scheduled.</p>
+                <p>Besides this, this week I also worked on getting ahead on my homework, as usual. I finished my AI
+                    project on adversarial search, a great field of AI which tends to result in very clean solutions. I
+                    also got feedback from my lab supervisor on a proposal for some research I've been working on for a
+                    while, involving robots that ask questions, but more on that later.</p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's in your way?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>As with most weeks, there are a few blockers in the way that I need to get rid of to best make use of
+                    my week. I first need to get my interview scheduled, especially since it'll take up a significant
+                    portion of my week. I also need to schedule my World Literature midterm and write an essay and a
+                    reflection. Basically, since the class is a self-paced class over UT Extension, I need to request
+                    test times (especially because I have to do the exams in person). There's also a Software
+                    Engineering midterm coming up, and I need to figure out how to best study for that. Otherwise, it's
+                    clear for the rest of the week.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What will you do next week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>Much of this I mentioned above. I need to catch up with World Literature, mostly because, and I did
+                    not mention this above, I might have fallen a week behind, depending on how quickly I can go through
+                    the coursework that's left. I also have an interview coming up... At an indeterminate point in time?
+                    Finally, there are midterms coming up, and a research proposal I need to better refine and get
+                    feedback on.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my experience of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week we had a very interesting class. We started off the week with a talk by Atlassian employee
+                    and former UT CS student Steve Ronderos. His talk was a good set of tips for people who are getting
+                    started on React and have never used it before. I hear from some more experienced people in React
+                    that there were some inaccuracies here and there, but for most of us, I think, this was a very
+                    instructive experience.</p>
+                <p>We then spent some time talking about implementation for the map function. This seemed initially like
+                    a very strange topic but let me explain why it was interesting. The problem with the map is that,
+                    not only does it take in an iterable object as an argument, but it also returns an iterator. This
+                    iterator has to somehow know what to run in order to map the next element after you left the scope
+                    of the function. This leaves you with one of two solutions: either you make map a constructor (or
+                    alternatively, a function that calls a constructor and returns said object) that creates an iterator
+                    that keeps track of both the lambda an iterator pointing at some point on the iterable you
+                    originally fed in. The alternative, in my opinion much more elegant, is to use <tt>yield</tt>. It
+                    will create an iterable with a function such that, everytime you call next on the returned value of
+                    a yielded function, it will jump ahead to the next <tt>yield</tt> and return its value.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my pick-of-the-week or tip-of-the-week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week, I want to give a random piece of potentially useful "trivia" about the Linux Kernel you
+                    might find useful (this could be particularly useful for sysadmins, but they probably already know
+                    this).</p>
+                <p>It starts with a conundrum. Imagine you open up your Linux server. It has been up and running for a
+                    few days, not doing much. Due to some strange knee-jerk reaction, you decide to check how much free
+                    memory it has, and you realize it only has about 0.8GB of its 32GB of RAM free. Concluding it must
+                    be some memory hog of a program, you decide to run <tt>ps</tt> to see what's using so much memory.
+                    However, all you have running are your standard daemons (<tt>sshd</tt>, an Apache server with very
+                    low memory usage, etc.). Confused, you're trying to figure out what's using so much memory. So what
+                    is it?</p>
+                <p>Well, turns out the Linux kernel does this thing where, if it notices that it has more than about 5%
+                    of physical RAM memory free, it will start using the leftover as a cache. It will basically use it
+                    to cache any files that were opened recently by a process. You can figure out this information by
+                    taking a look at your Linux box's memory, either by running a program like <tt>top</tt> or
+                    <tt>htop</tt>, or, alternatively, by looking at the contents of the file <tt>/proc/meminfo</tt>. You
+                    can run the command <tt>egrep --color 'Mem|Cache|Swap' /proc/meminfo</tt> to filter out all the
+                    non-relevant information and concentrate on main memory, the caches, and swap. The important piece
+                    of information here is that this is perfectly normal behaviour, and you don't need to restart your
+                    Linux machine because of some strange memory leak in the kernel. As soon as your processes start
+                    using more memory, they will get it.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+#end

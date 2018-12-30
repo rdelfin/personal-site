@@ -1,0 +1,66 @@
+#set (name)
+    Twitcher - Project
+#end
+
+#set (title)
+    Twitcher - Project
+#end
+
+#set (navbarId)nav-projects#end
+
+#set (headElem)
+
+#end
+
+#set (bodyElem)
+  <div class="mdl-grid portfolio-max-width">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Twitcher: The Robot Tweeter</h2>
+      </div>
+      <div class="mdl-card__media">
+        <img class="article-image" src="/images/twitcher02.jpg" border="0" alt="">
+      </div>
+
+      <div class="mdl-card__supporting-text">
+        <strong>CS378 Class Photo</strong>
+        <span>for spring 2017, the class I was a Peer Mentor/Undergraduate TA for.</span>
+      </div>
+
+
+      <div class="mdl-grid portfolio-copy">
+
+        <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">How does it work?</h3>
+        <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+          <p>This project makes use of the <a href="https://github.com/utexas-bwi/bwi_common">BWI
+            Project</a> codebase. Specifically, the bwi_kr_execution, or knowledge reasoner, package.
+            This provides a set of services to send goals to the robots.</p>
+          <p>The twitter handler is divided into 4 distinct components: The twitter connection, the
+            manager, the interpreter and the action executor. The twitter connection essentially is
+            in charge of connecting to twitter, both directly fetching new tweets and sending responses.</p>
+          <p>The second, the manager, coordinates all actions. It receives new tweets from the connection,
+            decides when to send responses, and sends requests to both the interpreter and action executors.</p>
+          <p>Next up, we have the interpreter. This one is in charge of converting tweets into an action.
+            This self-contained box is where all the research will happen going forward. Currently is uses
+            a simple regex pattern, but the long term goal is to use NLP to identify messages accordingly.</p>
+          <p>Finally, we have the action executor. This one simply translates action messages into goals
+            to be sent to the knowledge reasoner. From here, we can ask the robot to create a plan to go to
+            a particular room or hallway.</p>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <img class="article-image" src=" /images/twitcher03.jpg" border="0" alt="">
+        </div>
+
+        <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Want to look at the code?</h3>
+        <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+          <p>Download the code here:</p>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"  onclick="window.location.href='https://github.com/rdelfin/bwi_experimental/tree/master/bwi_twitter'">
+            <i class="material-icons">&#xE2C4;</i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+#end

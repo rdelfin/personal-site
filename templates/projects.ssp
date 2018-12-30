@@ -1,0 +1,51 @@
+#set (name)
+  Projects
+#end
+
+#set (title)
+  Projects
+#end
+
+#set (navbarId)nav-projects#end
+
+#set (headElem)
+
+#end
+
+#set (bodyElem)
+  <div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+      <div class="mdl-card__media">
+        <img class="article-image" src=" images/car01.jpg" border="0" alt="">
+        </div>
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Robot Car</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          I've been working on a small robot car, running on a Raspberry Pi, running the
+          Robot Operating System (ROS).
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
+             href="/projects/car">Read more</a>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+      <div class="mdl-card__media">
+        <img class="article-image" src=" images/twitcher01.jpg" border="0" alt="">
+      </div>
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Twitcher</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+      This project has the purpose of providing a Twitter user interface for a set of
+      segway robots at UTCS.
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
+          href="/projects/twitcher">Read more</a>
+      </div>
+    </div>
+  </div>
+#end

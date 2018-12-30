@@ -1,0 +1,115 @@
+#set (name)
+    CS373 Fall 2017: Week 3
+#end
+
+#set (title)
+    CS373 Fall 2017: Week 3
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-blog#end
+
+#set (bodyElem)
+<div class="mdl-grid portfolio-max-width">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Week 3: 11/9 - 17/9</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src="/images/downtown_austin.jpg" border="0" alt="">
+        </div>
+        <div class="mdl-card__supporting-text">
+            <strong>Downtown Austin</strong>
+            <span>as seen from the Colorado River.</span>
+        </div>
+        <div class="mdl-grid portfolio-copy">
+            <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+                <p>Time to get the blog post for week 3 out! This will be a bit shorter than last time, since there
+                    won't be any type erasure or other similar crazy tricks going on, but I hope you still find the read
+                    enjoyable. Let's jump right in&excl;</p>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+                <img class="article-image" src=" /images/selfie.png" border="0" alt="">
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>I spent this past week catching up on homework and working on a side project I've had for a while. On
+                    the homework side I basically just finished the first software engineering project, where I had to
+                    calculate the length of the Collatz sequence of a range of numbers and print out the length of the
+                    longest chain. It was definitely an interesting problem since there are plenty of optimizations you
+                    have to make to make this problem tractable.</p>
+                <p>I now want to talk about the side project I worked on though. I've been trying to get more experience
+                    with OpenGL and C++, so I've been creating a program that, eventually, should show and simulate
+                    <a href="https://en.wikipedia.org/wiki/Boids">boids</a>. Basically, it's a group of bird-like
+                    entities (hence the name) that, with very simple rules, exhibit complex flock-like behaviour.</p>
+                <p>I spent most of this week getting my code to work on my desktop computer, and adding a skymap.
+                    Fortunately, I managed to get both working. The first was a series of bugs caused by differences in
+                    the Nvidia implementation of OpenGL, while another was caused by me not realizing that the window I
+                    was creating was in fact too big for my monitor (and this took longer to debug than I'll ever admit
+                    to).</p>
+                <p>The second issue was a bit more interesting. OpenGL is one of those interfaces with a lot of legacy
+                    and external influence that went into its design. This has resulted in an interface with a lot of
+                    potential pitfalls. This is compounded by the fact that it's designed as a hidden state machine,
+                    where you call functions to change said state, as well as very uninformative error reporting.
+                    Essentially, it caused an issue where I had created too many of a certain kind of object (VAO's),
+                    which caused it to never load in the skybox. Suffice it to say, after much fiddling and testing, I
+                    got it to work.</p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's in your way?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>School-wise, I don't have too many roadblocks. There is one thing worrying me lately. Specifically,
+                    it's graduation. I am still unsure what my life after graduation will look like. My biggest
+                    roadblock in defining that is finishing interviews and waiting for companies to get back to me. It's
+                    been a source of nervousness lately, and I hope to be done with it as soon as possible.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What will you do next week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>I'll spend my next week catching up with my Artificial Intelligence class (homework will be due soon,
+                    and the homework is short enough to finish in one day). I'll also catch up on my reading for my
+                    World Literature class. I've found the readings really compelling and interesting, but I'm not used
+                    to reading with deadlines, and I think it'll be to my benefit to get used to it. Otherwise, I'll see
+                    where I can take my boids program in the next week. I'll add, the app I recommended two weeks ago,
+                    namely, Timeline, has served me well to finish homework on time these first two weeks. I hope to
+                    keep that up.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my experience of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>This week we talked in depth about bad tests, exceptions, and the python type system. In particular,
+                    I found the last topic very interesting. In that class, I was able to gain insight on how other
+                    programming languages deal with types and getting information on them. Particularly, I was not aware
+                    that every class in Java has an instance of a class called class to access information about said
+                    class. I definitely gained a lot of interesting knowledge.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my pick-of-the-week or tip-of-the-week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>My tip for this week is, once more, for C++ projects. Specifically, I'll recommend that for your next
+                    project (and also previous projects if you can be bothered retrofitting them) that you use CMake.
+                    This might sound like a tough sell, but trust me on this.</p>
+                <p>You might be wondering, why bother with such a complex build systems for your simple project? And
+                    you're not entirely wrong, if all you're doing is writing a single .cpp file with no dependencies,
+                    CMake isn't worth the hassle. On the other hand, as soon as you start taking on dependencies, CMake
+                    is worth the hassle. A common issue with build systems in C++ is that it's extremely hard to add
+                    dependencies. This issue tends to be platform specific and requires you to figure out what files to
+                    include, from what directory, and ends up being a hassle.</p>
+                <p>CMake helps you out on this problem by making a powerful, cross-platform system that lets you include
+                    a wide range of libraries easily, and do it in a cross-platform way. The way this works is you take
+                    on scripts and CMake files created by contributors, that link in and include a library. You can also
+                    contribute back by writing build scripts for other libraries. It's become widely used in the C++
+                    community and essentially every library has a CMake build option attached to the source, so go ahead
+                    and take advantage of this great resource!</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+#end

@@ -1,0 +1,201 @@
+#set (name)
+    CS373 Fall 2017: Week 1
+#end
+
+#set (title)
+    CS373 Fall 2017: Week 1
+#end
+
+#set (headElem)
+
+#end
+
+#set (navbarId)nav-blog#end
+
+#set (bodyElem)
+<div class="mdl-grid portfolio-max-width">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Week 1: 30/8 - 3/9</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src="/images/uttower.png" border="0" alt="">
+        </div>
+        <div class="mdl-card__supporting-text">
+            <strong>The UT Tower</strong>
+            <span>as seen from Martin Luther King Boulevard.</span>
+        </div>
+        <div class="mdl-grid portfolio-copy">
+            <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
+                <p>It's been an interesting first week of class. It began with a canceled flight and having
+                    to wait until Wednesday evening to catch the next flight back. Either way, I'm now back
+                    in Austin and ready to go through my last semester at UT Austin. Since there's less to
+                    talk about for this first post, I'll jump in to answering a couple questions.</p>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+                <img class="article-image" src=" /images/selfie.png" border="0" alt="">
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What are your expectations of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>In this class, I hope to improve the quality of the software I write and just hone in my software
+                    engineering skills overall. I've noticed in my past internships and the personal projects I've
+                    worked on, that my biggest enemy has been code quality. I can usually come up with an algorithm
+                    or a piece of code that will solve a given issue quickly. However, I'm generally not very good at
+                    testing it, documenting it, or keeping it generally readable. My hope is I will be able to improve
+                    those skills in this class.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>I dedicated most of the last week to settling back in Austin and my new class schedule, interviews,
+                    and interview prep. The interviews and interview prep were particularly useful.</p>
+                <p>Something I realized how easy it was to quickly loose practice if you're not programming on a daily
+                    basis as much. I got a very strong contrast with my interview season from last year where I had
+                    just finished a software engineering internship (as opposed to the product management internship I
+                    did this summer). My performance difference was measurable. This pushed me to try to study more.</p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's in your way?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>The biggest blockers I currently have are some of my classes. I'm still getting back on track with
+                    school schedule and it's very easy to fall behind early on. I've already fallen a bit behind in a
+                    world literature class. While I've enjoyed the readings, I am not quite reading them at the pace I
+                    should. This could impact my other classes if I'm not careful.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What will you do next week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>Now that my schedule has fully settled down, I'll dedicate next week to organizing my life by
+                    finding a good way to keep track of everything I have to do and when everything is due, as well as
+                    my progress. A favourite of mine on this is the android app
+                    <a href="https://play.google.com/store/apps/details?id=com.gabrielittner.timetable">timetable</a>.
+                    I'll also start working on all the projects that are coming up in all my CS classes, including
+                    Software Engineering.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my experience of the class?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>The first class I went to on Friday was quite interesting and different from a lot of CS classes
+                    I've taken in the past. It felt very applicable. An interesting dynamic I've seen teachers rarely
+                    use, but that I saw being very useful in this class was the teacher asking random students
+                    questions. This made sure that everyone was engaged in the class. I quite enjoyed learning the
+                    basics of how docker works, which I had never used.</p>
+            </div>
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What's my pick-of-the-week or tip-of-the-week?</h3>
+            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+                <p>While I learned this a while ago, it's been a topic that's been going around my head a lot lately.
+                    That's the concept of Type Erasure in C++. I felt like it was an extremely clever trick for anyone
+                    writing libraries in C++.</p>
+                <p>It works like this. Suppose you have two classes with a method called <tt>sound()</tt> with the
+                    exact same signature. They essentially do the same thing. However, this is only due to a convention
+                    and nobody created a class that implements both. You can see these below:</p>
+                <pre><code class="c++">
+class Dog {
+public:
+    std::string sound() { return "Woof!"; }
+};
+
+class Cat {
+    std::string sound() { return "Meow!"; }
+};
+                </code></pre>
+                <p>This, by the way, happens over and over in the C++ standard library, with methods like
+                    <tt>push_back()</tt> showing up in multiple places (both in the <tt>deque</tt> and <tt>vector</tt>
+                    classes). What if you want to encapsulate these and any other class with this method signature in a
+                    class, when you can't change these two classes?* You could encapsulate each class in a parent class
+                    and have those extend another class with a virtual <tt>sound()</tt> method, like so:</p>
+                <pre><code>
+class Animal {
+public:
+    virtual std::string sound() = 0;
+};
+
+class DogCapsule : public Animal {
+public:
+    DogCapsule(Dog d) : d(d);
+    virtual std::string sound() { return d.sound(); }
+private:
+    Dog d;
+};
+                </code></pre>
+                <p>And do the same with the cat class. This is nice and lets you create a method that takes in an
+                    <tt>Animal</tt>. The problem is this will not scale well. You need a capsule class for every new class.
+                    Instead, you can make use of templates to automatically create this encapsulating classes:</p>
+                <pre><code>
+class Animal {
+public:
+    virtual std::string sound() = 0;
+};
+
+template &lt;typename T&gt;
+class AnimalCapsule : public Animal {
+public:
+    const T &amp;animal;
+    AnimalCapsule(const T&amp; animal) : animal(animal) { }
+    std::string sound() { return animal.sound(); }
+};
+                </code></pre>
+                <p>And now, you can use the <tt>AnimalCapsule</tt> as a parameter into a function, and any class that
+                    contains a <tt>.sound()</tt> method with an appropriate signature will be converted into an
+                    <tt>AnimalCapsule()</tt> by the implicit copy constructor (or you can wrap it in the class by
+                    calling it explicitly). There's more to this pattern but this is the basics. This is very similar to
+                    how <tt>std::function</tt> works in C++ and how it converts disparate functors into instances of
+                    <tt>std::function</tt>, with the only requirement that they have <tt>operator()</tt> defined.</p>
+                <p>I'd like to thank Google Engineer Ivan Serna for introducing this in his C++11 class, as well as
+                    <a href="http://davekilian.com/cpp-type-erasure.html">this</a> blog post that helped me understand and
+                    write about this topic I found extremely interesting.</p>
+                <p>* There's a lot of reasons you would do this. You might want some common interface to be able to pass as
+                    arguments into methods, without caring what the underlying class is. This takes the burden of defining
+                    what methods you need in a function of the person designing the classes over to the person using them.</p>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+#end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
