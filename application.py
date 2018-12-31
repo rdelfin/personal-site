@@ -1,4 +1,5 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, abort, render_template, send_from_directory
+from jinja2.exceptions import TemplateNotFound
 
 # EB looks for an 'application' callable by default.
 application = Flask(__name__)
@@ -46,7 +47,10 @@ def twitcher_project():
 
 @application.route("/blog/post<int:post_num>")
 def blog_post(post_num):
-    return render_template(f"blog/post{post_num}.html")
+    try:
+        return render_template(f"blog/post{post_num}.html")
+    except TemplateNotFound:
+        abort(404)
 
 
 # run the app.
