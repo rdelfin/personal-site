@@ -1,22 +1,20 @@
-#set (name)
+{% extends 'template.html' %}
+
+{% block name %}
   Projects
-#end
+{% endblock %}
 
-#set (title)
-  Projects
-#end
+{% block navbarId %}nav-projects{% endblock %}
 
-#set (navbarId)nav-projects#end
+{% block headElem %}
 
-#set (headElem)
+{% endblock %}
 
-#end
-
-#set (bodyElem)
+{% block bodyElem %}
   <div class="mdl-grid portfolio-max-width">
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
       <div class="mdl-card__media">
-        <img class="article-image" src=" images/car01.jpg" border="0" alt="">
+        <img class="article-image" src=" /static/img/car01.jpg" border="0" alt="">
         </div>
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">Robot Car</h2>
@@ -33,7 +31,7 @@
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
       <div class="mdl-card__media">
-        <img class="article-image" src=" images/twitcher01.jpg" border="0" alt="">
+        <img class="article-image" src=" /static/img/twitcher01.jpg" border="0" alt="">
       </div>
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Twitcher</h2>
@@ -48,4 +46,4 @@
       </div>
     </div>
   </div>
-#end
+{% endblock %}

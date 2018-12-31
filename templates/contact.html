@@ -1,14 +1,12 @@
-#set (name)
+{% extends 'template.html' %}
+
+{% block name %}
 Contact Me
-#end
+{% endblock %}
 
-#set (title)
-Contact Me
-#end
+{% block navbarId %}nav-contact{% endblock %}
 
-#set (navbarId)nav-contact#end
-
-#set (headElem)
+{% block headElem %}
   <style>
     .contact-info {
       font-size:1.2em;
@@ -17,23 +15,22 @@ Contact Me
       padding-top:1em;*/
     }
   </style>
-#end
+{% endblock %}
 
-#set (bodyElem)
+{% block bodyElem %}
   <div class="mdl-grid portfolio-max-width portfolio-contact">
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Contact</h2>
       </div>
       <div class="mdl-card__media">
-        <img class="article-image" src=" images/contact-image.jpg" border="0" alt="">
+        <img class="article-image" src=" /static/img/contact-image.jpg" border="0" alt="">
       </div>
       <div class="mdl-card__supporting-text">
         <strong>Vasconcelos Library</strong>
         <span>in Mexico City.</span><br /><br />
         <div class="mdl-cell mdl-cell--6-col no-padding contact-info">
           <i class="icon ion-ios-email"></i> <a href="mailto:ricardo.delfin.garcia@gmail.com">&nbsp;ricardo.delfin.garcia@gmail.com</a><br />
-          <i class="icon ion-ios-telephone"></i> 512.903.6525<br />
           <i class="icon ion-social-linkedin"></i> <a href="https://www.linkedin.com/pub/ricardo-delfin-garcia/6b/1a6/b20">LinkedIn profile</a><br />
           <i class="icon ion-social-github"></i> <a href="https://www.github.com/rdelfin">Github</a><br />
           <i class="icon ion-social-twitter"></i> <a href="https://www.twitter.com/ridelfin">Twitter</a>
@@ -41,4 +38,4 @@ Contact Me
       </div>
     </div>
   </div>
-#end
+{% endblock %}

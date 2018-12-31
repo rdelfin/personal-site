@@ -1,18 +1,16 @@
-#set (name)
+{% extends 'template.html' %}
+
+{% block name %}
     CS373 Fall 2017: Week 3
-#end
+{% endblock %}
 
-#set (title)
-    CS373 Fall 2017: Week 3
-#end
+{% block headElem %}
 
-#set (headElem)
+{% endblock %}
 
-#end
+{% block navbarId %}nav-blog{% endblock %}
 
-#set (navbarId)nav-blog#end
-
-#set (bodyElem)
+{% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
 
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
@@ -20,7 +18,7 @@
             <h2 class="mdl-card__title-text">Week 3: 11/9 - 17/9</h2>
         </div>
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/downtown_austin.jpg" border="0" alt="">
+            <img class="article-image" src="/static/img/downtown_austin.jpg" border="0" alt="">
         </div>
         <div class="mdl-card__supporting-text">
             <strong>Downtown Austin</strong>
@@ -33,7 +31,7 @@
                     enjoyable. Let's jump right in&excl;</p>
             </div>
             <div class="mdl-cell mdl-cell--6-col">
-                <img class="article-image" src=" /images/selfie.png" border="0" alt="">
+                <img class="article-image" src=" /static/img/selfie.png" border="0" alt="">
             </div>
 
             <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
@@ -103,6 +101,7 @@
                     include, from what directory, and ends up being a hassle.</p>
                 <p>CMake helps you out on this problem by making a powerful, cross-platform system that lets you include
                     a wide range of libraries easily, and do it in a cross-platform way. The way this works is you take
+             
                     on scripts and CMake files created by contributors, that link in and include a library. You can also
                     contribute back by writing build scripts for other libraries. It's become widely used in the C++
                     community and essentially every library has a CMake build option attached to the source, so go ahead
@@ -112,4 +111,4 @@
     </div>
 
 </div>
-#end
+{% endblock %}

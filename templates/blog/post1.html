@@ -1,18 +1,16 @@
-#set (name)
+{% extends 'template.html' %}
+
+{% block name %}
     CS373 Fall 2017: Week 1
-#end
+{% endblock %}
 
-#set (title)
-    CS373 Fall 2017: Week 1
-#end
+{% block headElem %}
 
-#set (headElem)
+{% endblock %}
 
-#end
+{% block navbarId %}nav-blog{% endblock %}
 
-#set (navbarId)nav-blog#end
-
-#set (bodyElem)
+{% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
 
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
@@ -20,7 +18,7 @@
             <h2 class="mdl-card__title-text">Week 1: 30/8 - 3/9</h2>
         </div>
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/uttower.png" border="0" alt="">
+            <img class="article-image" src="/static/img/uttower.png" border="0" alt="">
         </div>
         <div class="mdl-card__supporting-text">
             <strong>The UT Tower</strong>
@@ -34,7 +32,7 @@
                     talk about for this first post, I'll jump in to answering a couple questions.</p>
             </div>
             <div class="mdl-cell mdl-cell--6-col">
-                <img class="article-image" src=" /images/selfie.png" border="0" alt="">
+                <img class="article-image" src=" /static/img/selfie.png" border="0" alt="">
             </div>
 
             <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What are your expectations of the class?</h3>
@@ -157,45 +155,4 @@ public:
     </div>
 
 </div>
-#end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% endblock %}

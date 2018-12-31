@@ -1,25 +1,23 @@
-#set (name)
+{% extends 'template.html' %}
+
+{% block name %}
     CS373 Fall 2017: Week 11
-#end
+{% endblock %}
 
-#set (title)
-    CS373 Fall 2017: Week 11
-#end
+{% block headElem %}
 
-#set (headElem)
+{% endblock %}
 
-#end
+{% block navbarId %}nav-blog{% endblock %}
 
-#set (navbarId)nav-blog#end
-
-#set (bodyElem)
+{% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 11: 6/11 - 12/11</h2>
         </div>
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/seattle.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/seattle.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__supporting-text">
             <strong>The Puget Sound</strong>
@@ -32,7 +30,7 @@
                     started with this week's blog entry.</p>
             </div>
             <div class="mdl-cell mdl-cell--6-col">
-                <img class="article-image" src=" /images/selfie.png" border="0" alt="" />
+                <img class="article-image" src=" /static/img/selfie.png" border="0" alt="" />
             </div>
 
             <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">What did you do this past week?</h3>
@@ -117,4 +115,4 @@
     </div>
 
 </div>
-#end
+{% endblock %}

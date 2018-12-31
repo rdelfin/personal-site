@@ -1,18 +1,16 @@
-#set (name)
+{% extends 'template.html' %}
+
+{% block name %}
 Twitcher - Project
-#end
+{% endblock %}
 
-#set (title)
-Twitcher - Project
-#end
+{% block headElem %}
 
-#set (headElem)
+{% endblock %}
 
-#end
+{% block navbarId %}nav-projects{% endblock %}
 
-#set (navbarId)nav-projects#end
-
-#set (bodyElem)
+{% block bodyElem %}
   <div class="mdl-grid portfolio-max-width">
 
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
@@ -20,7 +18,7 @@ Twitcher - Project
         <h2 class="mdl-card__title-text">Robot Car</h2>
       </div>
       <div class="mdl-card__media">
-        <img class="article-image" src="/images/car03-narrow.jpg" border="0" alt="">
+        <img class="article-image" src="/static/img/car03-narrow.jpg" border="0" alt="">
       </div>
       <div class="mdl-card__supporting-text">
         <strong>Early Version</strong>
@@ -42,12 +40,12 @@ Twitcher - Project
             an HTTP client for twitter, you name it!</p>
         </div>
         <div class="mdl-cell mdl-cell--6-col">
-          <img class="article-image" src=" /images/car02.jpg" border="0" alt="">
+          <img class="article-image" src=" /static/img/car02.jpg" border="0" alt="">
         </div>
 
         <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">How does the hardware work?</h3>
         <div class="mdl-cell mdl-cell--6-col">
-          <img class="article-image" src=" /images/car01.jpg" border="0" alt="">
+          <img class="article-image" src=" /static/img/car01.jpg" border="0" alt="">
         </div>
         <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text no-padding">
           <p>The motors are a standard set of <a href="https://www.sparkfun.com/products/13302">Sparkfun
@@ -74,4 +72,4 @@ Twitcher - Project
     </div>
 
   </div>
-#end
+{% endblock %}

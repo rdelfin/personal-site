@@ -1,19 +1,20 @@
-#set (name)
+{% extends 'template.html' %}
+
+{% block name %}
 CS373 Fall 2017
-#end
+{% endblock %}
 
-#set (title)CS373 Fall 2017#end
+{% block navbarId %}nav-blog{% endblock %}
 
-#set (navbarId)nav-blog#end
+{%block headElem %}
 
-#set (headElem)
-#end
+{% endblock %}
 
-#set (bodyElem)
+{% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/uttower.png" border="0" alt="" />
+            <img class="article-image" src="/static/img/uttower.png" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 1: 30/8 - 3/9 </h2>
@@ -30,7 +31,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/downtown_austin.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/downtown_austin.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 3: 11/9 - 17/9</h2>
@@ -47,7 +48,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/zocalo.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/zocalo.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 4: 18/9 - 24/9</h2>
@@ -64,7 +65,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/vancouver.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/vancouver.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 5: 25/9 - 1/10</h2>
@@ -83,7 +84,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/london_city_hall.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/london_city_hall.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 6: 2/10 - 8/10</h2>
@@ -101,7 +102,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/hacktx.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/hacktx.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 9: 23/10 - 29/10</h2>
@@ -117,7 +118,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/royal_albert_hall.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/royal_albert_hall.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 10: 30/10 - 5/11</h2>
@@ -133,7 +134,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/seattle.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/seattle.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 11: 6/11 - 12/11</h2>
@@ -149,7 +150,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/soco.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/soco.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Week 12: 13/11 - 19/11</h2>
@@ -165,7 +166,7 @@ CS373 Fall 2017
 
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/images/library.jpg" border="0" alt="" />
+            <img class="article-image" src="/static/img/library.jpg" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Final: 20/11 - 3/12</h2>
@@ -175,9 +176,9 @@ CS373 Fall 2017
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/postfinal">Read more</a>
+                href="/blog/post13">Read more</a>
         </div>
     </div>
 
 </div>
-#end
+{% endblock %}
