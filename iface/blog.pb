@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+
+message Element {
+    enum ElementType {
+        PARAGRAPH = 0;
+        HEADER = 1;
+        IMAGE = 2;
+    }
+    ElementType type = 1;
+    string content = 2;
+}
+
+message HeaderImage {
+    string path = 1;
+    string caption_strong = 2;
+    string caption_cont = 3;
+}
+
+message Blog {
+    string name = 1;
+    HeaderImage header_image = 2;
+    repeated Element elems = 3;
+}
+
+
