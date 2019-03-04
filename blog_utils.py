@@ -1,29 +1,26 @@
-import boto3
-from botocore.exceptions import ClientError
 from flask import Response, abort, render_template
 from jinja2.exceptions import TemplateNotFound
 from thrift import TSerialization
 
 from iface.gen.blog_pb2 import Blog
+from storage import StorageFactory, StorageType
+from storage.interface import KeyNotFoundError
 
 
 def respond_blog(number: int) -> Response:
-    blog = fetch_aws_blob(number)
+    blog = fetch_blog(number)
     return get_blog_template(blog)
 
 
-def fetch_aws_blob(number: int) -> Blog:
-    s3 = boto3.client("s3")
+def fetch_blog(number: int) -> Blog:
+    storage = StorageFactory.create(StorageType.TMP)
     try:
-        response = s3.get_object(Bucket="personal-site-data", Key=f"blog/{number}.blob")
-    except ClientError:
-        abort(404)
-    if response["ResponseMetadata"]["HTTPStatusCode"] != 200:
+        data = storage.get_blob(f'blogs/{number}.blob')
+    except KeyNotFoundError:
         abort(404)
 
-    data = response["Body"].read()
     blog = Blog()
-    blog.ParseFromString(blog)
+    blog.ParseFromString(data)
     return blog
 
 
