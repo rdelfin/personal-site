@@ -4,7 +4,7 @@ from flask import Response, abort, render_template
 from jinja2.exceptions import TemplateNotFound
 from thrift import TSerialization
 
-from iface.gen.blog.pb_pb2 import Blog
+from iface.gen.blog_pb2 import Blog
 
 
 def respond_blog(number: int) -> Response:
