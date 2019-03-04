@@ -17,7 +17,7 @@ class S3Storage(IStorage):
         return response["Body"].read()
 
     def put_blob(self, key: str, data: bytes) -> None:
-        raise NotImplementedError()
+        self.s3.put_object(Bucket="personal-site-data", Key=key, Body=data)
 
     def delete_blob(self, key: str) -> None:
-        raise NotImplementedError()
+        self.s3.delete_object(Bucket="personal-site-data", Key=key)
