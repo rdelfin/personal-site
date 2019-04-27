@@ -12,173 +12,22 @@ CS373 Fall 2017
 
 {% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
+    {% for key, blog in blogs.items() %}
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/uttower.png" border="0" alt="" />
+            <img class="article-image" src="{{ blog.header_image.path }}" border="0" alt="" />
         </div>
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 1: 30/8 - 3/9 </h2>
+            <h2 class="mdl-card__title-text">{{ blog.name }}</h2>
         </div>
         <div class="mdl-card__supporting-text">
-            It's been an interesting first week of class. It began with a canceled flight and having to wait until Wednesday...
+            {{ blog.teaser }}...
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post1">Read more</a>
+                href="/blog/post{{ key }}">Read more</a>
         </div>
     </div>
-
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/downtown_austin.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 3: 11/9 - 17/9</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            Time to get the blog post for week 3 out! This will be a bit shorter than last time, since there won't be any...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post3">Read more</a>
-        </div>
-    </div>
-
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/zocalo.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 4: 18/9 - 24/9</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            This week's blog will start with a bit of a somber note. This past Tuesday at 1:14 pm, just as Mexico City was...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post4">Read more</a>
-        </div>
-    </div>
-
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/vancouver.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 5: 25/9 - 1/10</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            Well, the semester is picking up faster than I saw it coming... With homework, midterms, projects, and a continuous...
-
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post5">Read more</a>
-        </div>
-    </div>
-
-
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/london_city_hall.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 6: 2/10 - 8/10</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            Well, there's definitely a lot that happened this past week. My job search has advanced significantly, homework was...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post6">Read more</a>
-        </div>
-    </div>
-
-
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/hacktx.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 9: 23/10 - 29/10</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            Finally past the halfway point of the semester! There's a lot that's coming up as the semester comes to a close...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post9">Read more</a>
-        </div>
-    </div>
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/royal_albert_hall.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 10: 30/10 - 5/11</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            So far it looks like this week and next week is panning out to be two pretty standard weeks. A lot to do, but nothing...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post10">Read more</a>
-        </div>
-    </div>
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/seattle.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 11: 6/11 - 12/11</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            Four more weeks of classes left! I'm not sure if I should be happy or panicking right now, so I've decided to go for...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post11">Read more</a>
-        </div>
-    </div>
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/soco.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Week 12: 13/11 - 19/11</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            At this point, I can feel the semester wrapping up. Everything seems to be speeding up, Austin is getting cold (though...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post12">Read more</a>
-        </div>
-    </div>
-
-    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-        <div class="mdl-card__media">
-            <img class="article-image" src="/static/img/library.jpg" border="0" alt="" />
-        </div>
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Final: 20/11 - 3/12</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            As requested by Downing, I'll use this final entry to summarize my experience of the entire class. To break this down...
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/post13">Read more</a>
-        </div>
-    </div>
-
+    {% endfor %}
 </div>
 {% endblock %}
