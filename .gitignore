@@ -117,3 +117,7 @@ eb-virt/
 
 # Thrift generated files
 iface/gen*
+
+# Config file (secret)
+settings.cfg
+
