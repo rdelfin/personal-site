@@ -1,4 +1,5 @@
 from botocore.exceptions import ClientError
+from flask import current_app
 from storage.interface import IStorage, KeyNotFoundError
 from typing import List
 import boto3
@@ -8,7 +9,11 @@ class S3Storage(IStorage):
     BUCKET = "personal-site-data"
 
     def __init__(self):
-        self.s3 = boto3.client("s3")
+        self.s3 = boto3.client(
+            "s3",
+            aws_access_key_id=current_app.config["AWS_ACCESS_ID"],
+            aws_secret_access_key=current_app.config["AWS_SECRET_KEY"],
+        )
 
     def get_blob(self, key: str) -> bytes:
         try:

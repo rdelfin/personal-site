@@ -3,6 +3,7 @@ import blog_utils
 
 # EB looks for an 'application' callable by default.
 application = Flask(__name__)
+application.config.from_pyfile("settings.cfg")
 
 
 @application.route("/static/<path:path>")
