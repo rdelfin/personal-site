@@ -1,5 +1,7 @@
 from storage.interface import IStorage, KeyNotFoundError
+from typing import List
 import os
+
 
 class TmpStorage(IStorage):
     SOURCE_DIR = "/tmp/personal-site-data"
@@ -30,3 +32,6 @@ class TmpStorage(IStorage):
             os.remove(f"{self.SOURCE_DIR}/{key}")
         except FileExistsError:
             raise KeyNotFoundError()
+
+    def list_blobs(self, prefix: str) -> List[str]:
+        return os.listdir(f"{self.SOURCE_DIR}/{prefix}")
