@@ -13,7 +13,7 @@ def respond_blog(number: int) -> Response:
 
 
 def fetch_blog(number: int) -> Blog:
-    storage = StorageFactory.create(StorageType.TMP)
+    storage = StorageFactory.create(StorageType.S3)
     try:
         data = storage.get_blob(f'blogs/{number}.blob')
     except KeyNotFoundError:

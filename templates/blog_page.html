@@ -29,7 +29,7 @@ CS373 Fall 2017: Week 1
             {# Paragraph #}
             {% if elem.type == 0 %}
             <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
-                <p>{{ elem.content }}</p>
+                <p>{{ elem.content|safe }}</p>
             </div>
 
             {# Header #}
