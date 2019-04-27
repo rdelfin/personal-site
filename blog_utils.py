@@ -9,16 +9,16 @@ from storage.interface import KeyNotFoundError
 
 
 def respond_blog(number: int) -> Response:
-    blog = fetch_blog(number)
-    return get_blog_template(blog)
+    blog = _fetch_blog(number)
+    return _get_blog_template(blog)
 
 
 def respond_blog_list() -> Response:
-    blogs = fetch_all_blogs()
-    return get_blog_list_template(blogs)
+    blogs = _fetch_all_blogs()
+    return _get_blog_list_template(blogs)
 
 
-def fetch_blog(number: int) -> Blog:
+def _fetch_blog(number: int) -> Blog:
     storage = StorageFactory.create(StorageType.S3)
     try:
         data = storage.get_blob(f"blogs/{number}.blob")
@@ -30,7 +30,7 @@ def fetch_blog(number: int) -> Blog:
     return blog
 
 
-def fetch_all_blogs() -> Dict[str, Blog]:
+def _fetch_all_blogs() -> Dict[str, Blog]:
     storage = StorageFactory.create(StorageType.S3)
     try:
         keys = storage.list_blobs("blogs")
@@ -47,14 +47,14 @@ def fetch_all_blogs() -> Dict[str, Blog]:
     return {key: tup[0] for key, tup in blog_dict.items()}
 
 
-def get_blog_template(blog: Blog) -> Response:
+def _get_blog_template(blog: Blog) -> Response:
     try:
         return render_template("blog_page.html", blog=blog)
     except TemplateNotFound:
         abort(404)
 
 
-def get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
+def _get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
     try:
         return render_template("blog.html", blogs=blogs)
     except TemplateNotFound:
