@@ -21,6 +21,5 @@ message Blog {
     string name = 1;
     HeaderImage header_image = 2;
     repeated Element elems = 3;
+    string teaser = 4;
 }
-
-
