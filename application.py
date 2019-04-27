@@ -22,7 +22,7 @@ def index():
 
 @application.route("/blog")
 def blog():
-    return render_template("blog.html")
+    return blog_utils.respond_blog_list()
 
 
 @application.route("/contact")
