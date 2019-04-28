@@ -1,7 +1,6 @@
 from flask import Response, abort, render_template
 from jinja2.exceptions import TemplateNotFound
 import re
-from thrift import TSerialization
 from typing import Dict
 
 from iface.gen.blog_pb2 import Blog
