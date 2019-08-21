@@ -115,5 +115,5 @@ eb-virt/
 # AWS
 .aws
 
-# Thrift generated files
-iface/gen*
+# Protobuf generated files
+# iface/gen*
