@@ -1,5 +1,6 @@
 from flask import Response, abort, redirect, render_template
 from jinja2.exceptions import TemplateNotFound
+import markdown2
 import re
 import time
 from typing import Dict
@@ -9,8 +10,8 @@ from storage import StorageFactory, StorageType
 from storage.interface import KeyNotFoundError
 
 
-def respond_blog(number: int) -> Response:
-    blog = _fetch_blog(number)
+def respond_blog(name: str) -> Response:
+    blog = _fetch_blog(name)
     return _get_blog_template(blog)
 
 
@@ -36,10 +37,10 @@ class InvalidBlogKeyError(Exception):
         super().__init__(f"Invalid blog key found: {key}")
 
 
-def _fetch_blog(number: int) -> Blog:
+def _fetch_blog(name: str) -> Blog:
     storage = StorageFactory.create(StorageType.S3)
     try:
-        data = storage.get_blob(f"blogs/{number}.blob")
+        data = storage.get_blob(f"blogs/{name}.blob")
     except KeyNotFoundError:
         abort(404)
 
@@ -66,7 +67,12 @@ def _fetch_all_blogs() -> Dict[str, Blog]:
 
 def _get_blog_template(blog: Blog) -> Response:
     try:
-        return render_template("blog_page.html", blog=blog)
+        return render_template(
+            "blog_page.html",
+            header_image=blog.header_image,
+            blog_title=blog.name,
+            html_content=markdown2.markdown(blog.markdown_content),
+        )
     except TemplateNotFound:
         abort(404)
 
@@ -114,6 +120,6 @@ def _create_blog(
 
     blob = blog.SerializeToString()
 
-    storage.put_blob(f"blogs/{path}", blob)
+    storage.put_blob(f"blogs/{path}.blob", blob)
 
     return redirect("/admin")

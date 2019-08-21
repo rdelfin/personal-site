@@ -46,9 +46,9 @@ def twitcher_project():
     return render_template("projects/twitcher.html")
 
 
-@app.route("/blog/post<int:post_num>")
-def blog_post(post_num: int) -> Response:
-    return blog_utils.respond_blog(post_num)
+@app.route("/blog/post_<post_name>")
+def blog_post(post_name: str) -> Response:
+    return blog_utils.respond_blog(post_name)
 
 
 @app.route("/admin")
