@@ -120,3 +120,6 @@ eb-virt/
 
 # Config file (secret)
 settings.cfg
+
+# Run file
+run.sh
