@@ -1,4 +1,4 @@
-from flask import Flask, Response, abort, render_template, send_from_directory
+from flask import Flask, Response, abort, render_template, request, send_from_directory
 from flask_sslify import SSLify
 import blog_utils
 
@@ -56,9 +56,14 @@ def admin() -> Response:
     return render_template("admin/main.html")
 
 
-@app.route("/admin/blog/create")
+@app.route("/admin/blog/create", methods=["GET"])
 def create_blog() -> Response:
     return render_template("admin/create_blog.html")
+
+
+@app.route("/admin/blog/create", methods=["POST"])
+def create_blog_post() -> Response:
+    return blog_utils.create_blog(request.form)
 
 
 # run the app.

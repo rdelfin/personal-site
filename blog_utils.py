@@ -1,9 +1,10 @@
-from flask import Response, abort, render_template
+from flask import Response, abort, redirect, render_template
 from jinja2.exceptions import TemplateNotFound
 import re
+import time
 from typing import Dict
 
-from iface.gen.blog_pb2 import Blog
+from iface.gen.blog_pb2 import Blog, HeaderImage
 from storage import StorageFactory, StorageType
 from storage.interface import KeyNotFoundError
 
@@ -16,6 +17,18 @@ def respond_blog(number: int) -> Response:
 def respond_blog_list() -> Response:
     blogs = _fetch_all_blogs()
     return _get_blog_list_template(blogs)
+
+
+def create_blog(form) -> Response:
+    return _create_blog(
+        form["path"],
+        form["title"],
+        form["header-img"],
+        form["header-cap-strong"],
+        form["header-cap-rest"],
+        form["teaser"],
+        form["content"],
+    )
 
 
 class InvalidBlogKeyError(Exception):
@@ -73,3 +86,34 @@ def _blog_number_from_key(key: str) -> str:
     if not match:
         raise InvalidBlogKeyError(key)
     return match.group(1)
+
+
+def _create_blog(
+    path: str,
+    title: str,
+    header_img: str,
+    header_caption_strong: str,
+    header_caption_rest: str,
+    teaser: str,
+    content: str,
+) -> Response:
+    storage = StorageFactory.create(StorageType.S3)
+    ts = int(time.time())
+    blog = Blog(
+        name=title,
+        header_image=HeaderImage(
+            path=header_img,
+            caption_strong=header_caption_strong,
+            caption_cont=header_caption_rest,
+        ),
+        teaser=teaser,
+        markdown_content=content,
+        creation_time=ts,
+        modification_time=ts,
+    )
+
+    blob = blog.SerializeToString()
+
+    storage.put_blob(f"blogs/{path}", blob)
+
+    return redirect("/admin")
