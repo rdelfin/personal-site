@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+
+{% block name %}
+    Create Blog
+{% endblock %}
+
+{% block navbarId %}{% endblock %}
+
+{% block headElem %}
+{% endblock %}
+
+{% block bodyElem %}
+  <div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Create Blog Post</h2>
+      </div>
+
+      <form action="#">
+        <div class="mdl-grid portfolio-copy">
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="title-input"></input>
+            <label class="mdl-textfield__label" for="title-input">Title</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="header-image-input"></input>
+            <label class="mdl-textfield__label" for="header-image-input">Header Image URL</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="teaser-input"></input>
+            <label class="mdl-textfield__label" for="teaser-input">Teaser</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+            <label class="mdl-textfield__label" for="sample5">Content</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              Submit
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

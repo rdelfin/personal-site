@@ -56,6 +56,11 @@ def admin() -> Response:
     return render_template("admin/main.html")
 
 
+@app.route("/admin/blog/create")
+def create_blog() -> Response:
+    return render_template("admin/create_blog.html")
+
+
 # run the app.
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
