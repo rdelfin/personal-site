@@ -1,7 +1,9 @@
 from flask import Flask, Response, abort, render_template, send_from_directory
+from flask_sslify import SSLify
 import blog_utils
 
 app = Flask(__name__)
+sslify = SSLify(app)
 
 
 @app.route("/static/<path:path>")
