@@ -1,5 +1,4 @@
 from botocore.exceptions import ClientError
-from flask import current_app
 from storage.interface import IStorage, KeyNotFoundError
 from typing import List
 import boto3
