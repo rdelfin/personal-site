@@ -53,7 +53,7 @@ def blog_post(post_num: int) -> Response:
 
 @app.route("/admin")
 def admin() -> Response:
-    return render_template("admin.html")
+    return render_template("admin/main.html")
 
 
 # run the app.
