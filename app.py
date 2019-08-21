@@ -1,52 +1,52 @@
 from flask import Flask, Response, abort, render_template, send_from_directory
+from flask_sslify import SSLify
 import blog_utils
 
-# EB looks for an 'application' callable by default.
-application = Flask(__name__)
-application.config.from_pyfile("settings.cfg")
+app = Flask(__name__)
+sslify = SSLify(app)
 
 
-@application.route("/static/<path:path>")
+@app.route("/static/<path:path>")
 def send_static(path):
     return send_from_directory("static", path)
 
 
-@application.route("/documents/<path:path>")
+@app.route("/documents/<path:path>")
 def send_document(path):
     return send_from_directory("documents", path)
 
 
-@application.route("/")
+@app.route("/")
 def index():
     return render_template("home.html")
 
 
-@application.route("/blog")
+@app.route("/blog")
 def blog():
     return blog_utils.respond_blog_list()
 
 
-@application.route("/contact")
+@app.route("/contact")
 def contact():
     return render_template("contact.html")
 
 
-@application.route("/projects")
+@app.route("/projects")
 def projects():
     return render_template("projects.html")
 
 
-@application.route("/projects/car")
+@app.route("/projects/car")
 def car_project():
     return render_template("projects/car.html")
 
 
-@application.route("/projects/twitcher")
+@app.route("/projects/twitcher")
 def twitcher_project():
     return render_template("projects/twitcher.html")
 
 
-@application.route("/blog/post<int:post_num>")
+@app.route("/blog/post<int:post_num>")
 def blog_post(post_num: int) -> Response:
     return blog_utils.respond_blog(post_num)
 
@@ -55,5 +55,5 @@ def blog_post(post_num: int) -> Response:
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    application.debug = True
-    application.run()
+    appl.debug = True
+    appl.run()
