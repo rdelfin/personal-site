@@ -3,6 +3,7 @@ from flask import current_app
 from storage.interface import IStorage, KeyNotFoundError
 from typing import List
 import boto3
+import os
 
 
 class S3Storage(IStorage):
@@ -11,8 +12,8 @@ class S3Storage(IStorage):
     def __init__(self):
         self.s3 = boto3.client(
             "s3",
-            aws_access_key_id=current_app.config["AWS_ACCESS_ID"],
-            aws_secret_access_key=current_app.config["AWS_SECRET_KEY"],
+            aws_access_key_id=os.getenv("S3_KEY"),
+            aws_secret_access_key=os.getenv("S3_SECRET"),
         )
 
     def get_blob(self, key: str) -> bytes:
