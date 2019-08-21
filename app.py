@@ -1,8 +1,8 @@
 from flask import Flask, Response, abort, render_template, send_from_directory
 import blog_utils
 
-# EB looks for an 'application' callable by default.
 app = Flask(__name__)
+app.config.from_pyfile("settings.cfg")
 
 
 @app.route("/static/<path:path>")

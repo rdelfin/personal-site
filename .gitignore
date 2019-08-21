@@ -117,3 +117,6 @@ eb-virt/
 
 # Protobuf generated files
 # iface/gen*
+
+# Config file (secret)
+settings.cfg
