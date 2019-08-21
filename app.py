@@ -51,7 +51,7 @@ def blog_post(post_num: int) -> Response:
     return blog_utils.respond_blog(post_num)
 
 
-@application.route("/admin")
+@app.route("/admin")
 def admin() -> Response:
     return render_template("admin.html")
 
