@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Response, abort, redirect, render_template
 from jinja2.exceptions import TemplateNotFound
 import markdown2
@@ -72,6 +73,8 @@ def _get_blog_template(blog: Blog) -> Response:
             header_image=blog.header_image,
             blog_title=blog.name,
             html_content=markdown2.markdown(blog.markdown_content),
+            creation_date=f"{datetime.fromtimestamp(blog.creation_time)} UTC",
+            modified_date=f"{datetime.fromtimestamp(blog.modification_time)} UTC",
         )
     except TemplateNotFound:
         abort(404)

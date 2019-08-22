@@ -1,7 +1,7 @@
 {% extends 'template.html' %}
 
 {% block name %}
-CS373 Fall 2017: Week 1
+{{ blog_title }}
 {% endblock %}
 
 {% block headElem %}
@@ -13,23 +13,27 @@ CS373 Fall 2017: Week 1
 {% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
 
-    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">{{ blog_title }}</h2>
-        </div>
-        <div class="mdl-card__media">
-            <img class="article-image" src="{{ header_image.path }}" border="0" alt="">
-        </div>
-        <div class="mdl-card__supporting-text">
-            <strong>{{ header_image.caption_strong }}</strong>
-            <span>{{ header_image.caption_cont }}</span>
-        </div>
-        <div class="mdl-grid portfolio-copy">
-            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
-                {{ html_content|safe }}
-            </div>
-        </div>
+  <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text">{{ blog_title }}</h2>
     </div>
+    <div class="mdl-card__supporting-text">
+      Created at {{ creation_date }}<br />
+      Last modified at {{ modified_date }}
+    </div>
+    <div class="mdl-card__media">
+      <img class="article-image" src="{{ header_image.path }}" border="0" alt="">
+    </div>
+    <div class="mdl-card__supporting-text">
+      <strong>{{ header_image.caption_strong }}</strong>
+      <span>{{ header_image.caption_cont }}</span>
+    </div>
+    <div class="mdl-grid portfolio-copy">
+      <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+        {{ html_content|safe }}
+      </div>
+    </div>
+  </div>
 
 </div>
 {% endblock %}
