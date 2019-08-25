@@ -15,9 +15,14 @@
     active_key = null;
 
     $(document).ready(function() {
-        var dialog = document.querySelector("#confirm-dialog");
-        if (!dialog.showModal) {
-            dialogPolyfill.registerDialog(dialog);
+        var confirm_dialog = document.querySelector("#confirm-dialog");
+        if (!confirm_dialog.showModal) {
+            dialogPolyfill.registerDialog(confirm_dialog);
+        }
+
+        var loading_dialog = document.querySelector("#loading-dialog");
+        if (!loading_dialog.showModal) {
+            dialogPolyfill.registerDialog(loading_dialog);
         }
 
         keys.forEach(function (key, index) {
@@ -25,12 +30,26 @@
             $("#delete-action-" + key).click(function() {
                 active_key = key;
                 $("#dialog-text").text("Are you sure you want to delete the blog titled \"" + active_key + "\"?")
-                dialog.showModal();
+                confirm_dialog.showModal();
             });
         });
 
-        $(".close").click(function() {
-            dialog.close();
+        $("#close-delete").click(function() {
+            confirm_dialog.close();
+        });
+
+        $("#confirmed-delete").click(function() {
+            confirm_dialog.close();
+            loading_dialog.showModal();
+            $.ajax({
+                url: "/admin/blog/delete",
+                type: "POST",
+                data: JSON.stringify({"path": active_key}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) { location.reload(); },
+                failure: function(data) { location.reload(); },
+            });
         });
     });
 </script>
@@ -44,8 +63,15 @@
             <p id="dialog-text"></p>
         </div>
         <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button">Yes</button>
-            <button type="button" class="mdl-button close">Cancel</button>
+            <button type="button" class="mdl-button" id="confirmed-delete">Yes</button>
+            <button type="button" class="mdl-button" id="close-delete">Cancel</button>
+        </div>
+    </dialog>
+
+    <dialog class="mdl-dialog", id="loading-dialog">
+        <h4 class="mdl-dialog__title">Loading...</h4>
+        <div class="mdl-dialog__content" id="loading-dialog-content">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
         </div>
     </dialog>
 
