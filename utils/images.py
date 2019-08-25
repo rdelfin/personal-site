@@ -9,14 +9,12 @@ def _get_storage():
 def add_image(img_file):
     blob_key = f"imgs/{img_file.filename}"
     img_data = img_file.read()
-    print(f"img_data len: {len(img_data)}, type: {type(img_data)}")
     s = _get_storage()
-    print(f"img_file type: {type(img_file)}")
 
     if blob_key in s.list_blobs("imgs/"):
         return json_response(
             ok=False, err=f'Image with name "{blob_key}" already exists.', status=400
         )
 
-        s.put_blob(blob_key, img_data)
+    s.put_blob(blob_key, img_data)
     return json_response(ok=True)
