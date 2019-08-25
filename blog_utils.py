@@ -1,15 +1,19 @@
-from flask import Response, abort, render_template
+from datetime import datetime
+from flask import Response, abort, redirect, render_template
+from flask_json import json_response
 from jinja2.exceptions import TemplateNotFound
+import markdown2
 import re
-from typing import Dict
+import time
+from typing import Any, Dict
 
-from iface.gen.blog_pb2 import Blog
+from iface.gen.blog_pb2 import Blog, HeaderImage
 from storage import StorageFactory, StorageType
 from storage.interface import KeyNotFoundError
 
 
-def respond_blog(number: int) -> Response:
-    blog = _fetch_blog(number)
+def respond_blog(name: str) -> Response:
+    blog = _fetch_blog(name)
     return _get_blog_template(blog)
 
 
@@ -18,15 +22,37 @@ def respond_blog_list() -> Response:
     return _get_blog_list_template(blogs)
 
 
+def create_blog(form) -> Response:
+    return _create_blog(
+        form["path"],
+        form["title"],
+        form["header-img"],
+        form["header-cap-strong"],
+        form["header-cap-rest"],
+        form["teaser"],
+        form["content"],
+    )
+
+def delete_single_blog(data: Dict[str, Any]) -> Response:
+    if _delete_single_blog(data["path"]):
+        return json_response(ok=True)
+    return json_response(ok=False, err=f"Blog {data['path']} was not found.", status=404)
+
+
+def delete_blog() -> Response:
+    blogs = _fetch_all_blogs()
+    return _delete_blog_list_template(blogs)
+
+
 class InvalidBlogKeyError(Exception):
     def __init__(self, key: str) -> None:
         super().__init__(f"Invalid blog key found: {key}")
 
 
-def _fetch_blog(number: int) -> Blog:
+def _fetch_blog(name: str) -> Blog:
     storage = StorageFactory.create(StorageType.S3)
     try:
-        data = storage.get_blob(f"blogs/{number}.blob")
+        data = storage.get_blob(f"blogs/{name}.blob")
     except KeyNotFoundError:
         abort(404)
 
@@ -53,7 +79,14 @@ def _fetch_all_blogs() -> Dict[str, Blog]:
 
 def _get_blog_template(blog: Blog) -> Response:
     try:
-        return render_template("blog_page.html", blog=blog)
+        return render_template(
+            "blog_page.html",
+            header_image=blog.header_image,
+            blog_title=blog.name,
+            html_content=markdown2.markdown(blog.markdown_content),
+            creation_date=f"{datetime.fromtimestamp(blog.creation_time)} UTC",
+            modified_date=f"{datetime.fromtimestamp(blog.modification_time)} UTC",
+        )
     except TemplateNotFound:
         abort(404)
 
@@ -61,6 +94,12 @@ def _get_blog_template(blog: Blog) -> Response:
 def _get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
     try:
         return render_template("blog.html", blogs=blogs)
+    except TemplateNotFound:
+        abort(404)
+
+def _delete_blog_list_template(blogs: Dict[str, Blog]) -> Response:
+    try:
+        return render_template("admin/delete_blog.html", blogs=blogs)
     except TemplateNotFound:
         abort(404)
 
@@ -73,3 +112,45 @@ def _blog_number_from_key(key: str) -> str:
     if not match:
         raise InvalidBlogKeyError(key)
     return match.group(1)
+
+
+def _create_blog(
+    path: str,
+    title: str,
+    header_img: str,
+    header_caption_strong: str,
+    header_caption_rest: str,
+    teaser: str,
+    content: str,
+) -> Response:
+    storage = StorageFactory.create(StorageType.S3)
+    ts = int(time.time())
+    blog = Blog(
+        name=title,
+        header_image=HeaderImage(
+            path=header_img,
+            caption_strong=header_caption_strong,
+            caption_cont=header_caption_rest,
+        ),
+        teaser=teaser,
+        markdown_content=content,
+        creation_time=ts,
+        modification_time=ts,
+    )
+
+    blob = blog.SerializeToString()
+
+    storage.put_blob(f"blogs/{path}.blob", blob)
+
+    return redirect("/admin")
+
+def _delete_single_blog(path: str) -> bool:
+    storage = StorageFactory.create(StorageType.S3)
+    full_path = f"blogs/{path}.blob"
+    try:
+        storage.get_blob(full_path)
+    except Exception:
+        return False
+
+    storage.delete_blob(full_path)
+    return True

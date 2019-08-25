@@ -1,0 +1,96 @@
+{% extends 'template.html' %}
+
+{% block name %}
+    Create Blog
+{% endblock %}
+
+{% block navbarId %}{% endblock %}
+
+{% block headElem %}
+<script>
+    keys = [
+        {% for key in blogs.keys() %}"{{ key }}",
+        {% endfor %}
+    ];
+    active_key = null;
+
+    $(document).ready(function() {
+        var confirm_dialog = document.querySelector("#confirm-dialog");
+        if (!confirm_dialog.showModal) {
+            dialogPolyfill.registerDialog(confirm_dialog);
+        }
+
+        var loading_dialog = document.querySelector("#loading-dialog");
+        if (!loading_dialog.showModal) {
+            dialogPolyfill.registerDialog(loading_dialog);
+        }
+
+        keys.forEach(function (key, index) {
+            console.log("Registering key " + key)
+            $("#delete-action-" + key).click(function() {
+                active_key = key;
+                $("#dialog-text").text("Are you sure you want to delete the blog titled \"" + active_key + "\"?")
+                confirm_dialog.showModal();
+            });
+        });
+
+        $("#close-delete").click(function() {
+            confirm_dialog.close();
+        });
+
+        $("#confirmed-delete").click(function() {
+            confirm_dialog.close();
+            loading_dialog.showModal();
+            $.ajax({
+                url: "/admin/blog/delete",
+                type: "POST",
+                data: JSON.stringify({"path": active_key}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) { location.reload(); },
+                failure: function(data) { location.reload(); },
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+{% block bodyElem %}
+<div class="mdl-grid portfolio-max-width">
+    <dialog class="mdl-dialog", id="confirm-dialog">
+        <h4 class="mdl-dialog__title">Confirm deletion</h4>
+        <div class="mdl-dialog__content">
+            <p id="dialog-text"></p>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button" id="confirmed-delete">Yes</button>
+            <button type="button" class="mdl-button" id="close-delete">Cancel</button>
+        </div>
+    </dialog>
+
+    <dialog class="mdl-dialog", id="loading-dialog">
+        <h4 class="mdl-dialog__title">Loading...</h4>
+        <div class="mdl-dialog__content" id="loading-dialog-content">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+        </div>
+    </dialog>
+
+    {% for key, blog in blogs.items() %}
+    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+        <div class="mdl-card__media">
+            <img class="article-image" src="{{ blog.header_image.path }}" border="0" alt="" />
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">{{ blog.name }}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            {{ blog.teaser }}...
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
+               id="delete-action-{{ key }}" href="#">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

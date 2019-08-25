@@ -22,4 +22,9 @@ message Blog {
     HeaderImage header_image = 2;
     repeated Element elems = 3;
     string teaser = 4;
+    string markdown_content = 5;
+
+    // Unix timestamps (UTC)
+    int64 creation_time = 6;
+    int64 modification_time = 7;
 }
