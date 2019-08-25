@@ -2,7 +2,7 @@ from flask import Flask, Response, abort, render_template, request, send_from_di
 from flask_json import FlaskJSON
 from flask_sslify import SSLify
 
-from auth import authenticate
+import auth
 import blog_utils
 
 app = Flask(__name__)
@@ -56,31 +56,39 @@ def blog_post(post_name: str) -> Response:
 
 
 @app.route("/admin")
-@authenticate
+@app.authenticate
 def admin() -> Response:
     return render_template("admin/main.html")
 
 
 @app.route("/admin/blog/create", methods=["GET"])
-@authenticate
+@app.authenticate
 def create_blog() -> Response:
     return render_template("admin/create_blog.html")
 
 
 @app.route("/admin/blog/create", methods=["POST"])
-@authenticate
+@app.authenticate
 def create_blog_post() -> Response:
     return blog_utils.create_blog(request.form)
 
 @app.route("/admin/blog/delete", methods=["GET"])
-@authenticate
+@app.authenticate
 def delete_blog() -> Response:
     return blog_utils.delete_blog()
 
 @app.route("/admin/blog/delete", methods=["POST"])
-@authenticate
+@app.authenticate
 def delete_blog_post() -> Response:
     return blog_utils.delete_single_blog(request.get_json())
+
+@app.route("/admin/login", methods=["GET"])
+def login() -> Response:
+    return render_template("admin/login.html")
+
+@app.route("/admin/get_token", method=["POST"])
+def get_token -> Response:
+    return auth.get_login_token(request.get_json())
 
 
 # run the app.
