@@ -42,7 +42,7 @@
             confirm_dialog.close();
             loading_dialog.showModal();
             $.ajax({
-                url: "/admin/blog/delete",
+                url: "/api/admin/blog/delete",
                 type: "POST",
                 data: JSON.stringify({"path": active_key}),
                 contentType: "application/json; charset=utf-8",

@@ -20,7 +20,7 @@
             password = $("input[name=password]").val()
             sent_data = JSON.stringify({"password": password})
             $.ajax({
-                url: "/admin/get_token",
+                url: "/api/admin/get_token",
                 type: "POST",
                 data: sent_data,
                 contentType: "application/json; charset=utf-8",

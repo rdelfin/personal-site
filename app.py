@@ -1,13 +1,17 @@
 from flask import Flask, Response, abort, render_template, request, send_from_directory
-from flask_json import FlaskJSON
 from flask_sslify import SSLify
+from flask_json import FlaskJSON
 
 import auth as app_auth
 import blog_utils
+from modules import admin, api
 
 app = Flask(__name__)
 sslify = SSLify(app)
 json = FlaskJSON(app)
+
+app.register_blueprint(admin.bp, url_prefix="/admin")
+app.register_blueprint(api.bp, url_prefix="/api")
 
 
 @app.route("/static/<path:path>")
@@ -53,42 +57,6 @@ def twitcher_project():
 @app.route("/blog/post_<post_name>")
 def blog_post(post_name: str) -> Response:
     return blog_utils.respond_blog(post_name)
-
-
-@app.route("/admin")
-@app_auth.authenticate
-def admin() -> Response:
-    return render_template("admin/main.html")
-
-
-@app.route("/admin/blog/create", methods=["GET"])
-@app_auth.authenticate
-def create_blog() -> Response:
-    return render_template("admin/create_blog.html")
-
-
-@app.route("/admin/blog/create", methods=["POST"])
-@app_auth.authenticate
-def create_blog_post() -> Response:
-    return blog_utils.create_blog(request.get_json())
-
-@app.route("/admin/blog/delete", methods=["GET"])
-@app_auth.authenticate
-def delete_blog() -> Response:
-    return blog_utils.delete_blog()
-
-@app.route("/admin/blog/delete", methods=["POST"])
-@app_auth.authenticate
-def delete_blog_post() -> Response:
-    return blog_utils.delete_single_blog(request.get_json())
-
-@app.route("/admin/login", methods=["GET"])
-def login() -> Response:
-    return render_template("admin/login.html")
-
-@app.route("/admin/get_token", methods=["POST"])
-def get_token() -> Response:
-    return app_auth.get_login_token(request.get_json())
 
 
 # run the app.

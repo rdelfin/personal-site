@@ -29,7 +29,7 @@
                 "content": $("textarea[name=content]").val(),
             }
             $.ajax({
-                url: "/admin/blog/create",
+                url: "/api/admin/blog/create",
                 type: "POST",
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
