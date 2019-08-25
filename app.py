@@ -70,7 +70,7 @@ def create_blog() -> Response:
 @app.route("/admin/blog/create", methods=["POST"])
 @app_auth.authenticate
 def create_blog_post() -> Response:
-    return blog_utils.create_blog(request.form)
+    return blog_utils.create_blog(request.get_json())
 
 @app.route("/admin/blog/delete", methods=["GET"])
 @app_auth.authenticate

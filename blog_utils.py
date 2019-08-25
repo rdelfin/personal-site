@@ -22,15 +22,15 @@ def respond_blog_list() -> Response:
     return _get_blog_list_template(blogs)
 
 
-def create_blog(form) -> Response:
+def create_blog(data: Dict[str, Any]) -> Response:
     return _create_blog(
-        form["path"],
-        form["title"],
-        form["header-img"],
-        form["header-cap-strong"],
-        form["header-cap-rest"],
-        form["teaser"],
-        form["content"],
+        data["path"],
+        data["title"],
+        data["header-img"],
+        data["header-cap-strong"],
+        data["header-cap-rest"],
+        data["teaser"],
+        data["content"],
     )
 
 def delete_single_blog(data: Dict[str, Any]) -> Response:
@@ -124,6 +124,13 @@ def _create_blog(
     content: str,
 ) -> Response:
     storage = StorageFactory.create(StorageType.S3)
+    blog_path = f"blogs/{path}.blob"
+
+    if blog_path in storage.list_blobs("blogs"):
+        return json_response(
+            ok=False, err=f"Blog titled {path} already exists", status=400
+        )
+
     ts = int(time.time())
     blog = Blog(
         name=title,
@@ -140,9 +147,10 @@ def _create_blog(
 
     blob = blog.SerializeToString()
 
-    storage.put_blob(f"blogs/{path}.blob", blob)
+    storage.put_blob(blog_path, blob)
 
-    return redirect("/admin")
+    return json_response(ok=True)
+
 
 def _delete_single_blog(path: str) -> bool:
     storage = StorageFactory.create(StorageType.S3)

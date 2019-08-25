@@ -7,17 +7,71 @@
 {% block navbarId %}{% endblock %}
 
 {% block headElem %}
+<script>
+    $(document).ready(function() {
+        var snackbar = document.querySelector("#post-snackbar");
+        var loading_dialog = document.querySelector("#loading-dialog");
+        if (!loading_dialog.showModal) {
+            dialogPolyfill.registerDialog(loading_dialog);
+        }
+
+        $("#postform").submit(function(event) {
+            loading_dialog.showModal();
+
+            // Load up data
+            data = {
+                "path": $("input[name=path]").val(),
+                "title": $("input[name=title]").val(),
+                "header-img": $("input[name=header-img]").val(),
+                "header-cap-strong": $("input[name=header-cap-strong]").val(),
+                "header-cap-rest": $("input[name=header-cap-rest]").val(),
+                "teaser": $("input[name=teaser]").val(),
+                "content": $("textarea[name=content]").val(),
+            }
+            $.ajax({
+                url: "/admin/blog/create",
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    if (data.status != 200) {
+                        loading_dialog.close();
+                        err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
+                        snackbar.MaterialSnackbar.showSnackbar({
+                            message: "Failed to create blog. " + err_msg
+                        });
+                        return false;
+                    }
+
+                    window.location.replace("/admin");
+                    return false;
+                },
+            });
+
+
+            return false;
+        });
+    });
+</script>
 {% endblock %}
 
 {% block bodyElem %}
   <div class="mdl-grid portfolio-max-width">
+    <dialog class="mdl-dialog", id="loading-dialog">
+      <h4 class="mdl-dialog__title">Loading...</h4>
+      <div class="mdl-dialog__content" id="loading-dialog-content">
+        <div class="mdl-spinner mdl-js-spinner is-active"></div>
+      </div>
+    </dialog>
+
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
 
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Create Blog Post</h2>
       </div>
 
-      <form method="post">
+      <form id="postform">
         <div class="mdl-grid portfolio-copy">
 
           <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -51,7 +105,7 @@
           </div>
 
           <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
-            <textarea class="mdl-textfield__input" type="text" name="content" rows= "3" id="sample5"></textarea>
+            <textarea class="mdl-textfield__input" type="text" name="content" id="content-input" rows= "3" id="sample5"></textarea>
             <label class="mdl-textfield__label" for="sample5">Content</label>
           </div>
 
@@ -65,5 +119,12 @@
       </form>
 
     </div>
+  </div>
+
+
+
+  <div id="post-snackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
   </div>
 {% endblock %}
