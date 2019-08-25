@@ -32,6 +32,10 @@ def create_blog(form) -> Response:
         form["content"],
     )
 
+def delete_blog() -> Response:
+    blogs = _fetch_all_blogs()
+    return _delete_blog_list_template(blogs)
+
 
 class InvalidBlogKeyError(Exception):
     def __init__(self, key: str) -> None:
@@ -83,6 +87,12 @@ def _get_blog_template(blog: Blog) -> Response:
 def _get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
     try:
         return render_template("blog.html", blogs=blogs)
+    except TemplateNotFound:
+        abort(404)
+
+def _delete_blog_list_template(blogs: Dict[str, Blog]) -> Response:
+    try:
+        return render_template("admin/delete_blog.html", blogs=blogs)
     except TemplateNotFound:
         abort(404)
 

@@ -1,0 +1,70 @@
+{% extends 'template.html' %}
+
+{% block name %}
+    Create Blog
+{% endblock %}
+
+{% block navbarId %}{% endblock %}
+
+{% block headElem %}
+<script>
+    keys = [
+        {% for key in blogs.keys() %}"{{ key }}",
+        {% endfor %}
+    ];
+    active_key = null;
+
+    $(document).ready(function() {
+        var dialog = document.querySelector("#confirm-dialog");
+        if (!dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+
+        keys.forEach(function (key, index) {
+            console.log("Registering key " + key)
+            $("#delete-action-" + key).click(function() {
+                active_key = key;
+                $("#dialog-text").text("Are you sure you want to delete the blog titled \"" + active_key + "\"?")
+                dialog.showModal();
+            });
+        });
+
+        $(".close").click(function() {
+            dialog.close();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block bodyElem %}
+<div class="mdl-grid portfolio-max-width">
+    <dialog class="mdl-dialog", id="confirm-dialog">
+        <h4 class="mdl-dialog__title">Confirm deletion</h4>
+        <div class="mdl-dialog__content">
+            <p id="dialog-text"></p>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button">Yes</button>
+            <button type="button" class="mdl-button close">Cancel</button>
+        </div>
+    </dialog>
+
+    {% for key, blog in blogs.items() %}
+    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+        <div class="mdl-card__media">
+            <img class="article-image" src="{{ blog.header_image.path }}" border="0" alt="" />
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">{{ blog.name }}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            {{ blog.teaser }}...
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
+               id="delete-action-{{ key }}" href="#">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

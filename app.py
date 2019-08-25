@@ -65,6 +65,10 @@ def create_blog() -> Response:
 def create_blog_post() -> Response:
     return blog_utils.create_blog(request.form)
 
+@app.route("/admin/blog/delete", methods=["GET"])
+def delete_blog() -> Response:
+    return blog_utils.delete_blog()
+
 
 # run the app.
 if __name__ == "__main__":
