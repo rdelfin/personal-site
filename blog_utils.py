@@ -1,10 +1,11 @@
 from datetime import datetime
 from flask import Response, abort, redirect, render_template
+from flask_json import json_response
 from jinja2.exceptions import TemplateNotFound
 import markdown2
 import re
 import time
-from typing import Dict
+from typing import Any, Dict
 
 from iface.gen.blog_pb2 import Blog, HeaderImage
 from storage import StorageFactory, StorageType
@@ -31,6 +32,12 @@ def create_blog(form) -> Response:
         form["teaser"],
         form["content"],
     )
+
+def delete_single_blog(data: Dict[str, Any]) -> Response:
+    if _delete_single_blog(data["path"]):
+        return json_response(ok=True)
+    return json_response(ok=False, err=f"Blog {data['path']} was not found.", status=404)
+
 
 def delete_blog() -> Response:
     blogs = _fetch_all_blogs()
@@ -136,3 +143,14 @@ def _create_blog(
     storage.put_blob(f"blogs/{path}.blob", blob)
 
     return redirect("/admin")
+
+def _delete_single_blog(path: str) -> bool:
+    storage = StorageFactory.create(StorageType.S3)
+    full_path = f"blogs/{path}.blob"
+    try:
+        storage.get_blob(full_path)
+    except Exception:
+        return False
+
+    storage.delete_blob(full_path)
+    return True

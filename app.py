@@ -1,9 +1,11 @@
 from flask import Flask, Response, abort, render_template, request, send_from_directory
+from flask_json import FlaskJSON
 from flask_sslify import SSLify
 import blog_utils
 
 app = Flask(__name__)
 sslify = SSLify(app)
+json = FlaskJSON(app)
 
 
 @app.route("/static/<path:path>")
@@ -68,6 +70,10 @@ def create_blog_post() -> Response:
 @app.route("/admin/blog/delete", methods=["GET"])
 def delete_blog() -> Response:
     return blog_utils.delete_blog()
+
+@app.route("/admin/blog/delete", methods=["POST"])
+def delete_blog_post() -> Response:
+    return blog_utils.delete_single_blog(request.get_json())
 
 
 # run the app.
