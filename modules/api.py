@@ -1,7 +1,7 @@
 from flask import Blueprint, Response, request
 
-import auth as app_auth
-import blog_utils
+from utils import auth as app_auth
+from utils import blog as blog_utils
 
 
 bp = Blueprint("api", __name__)

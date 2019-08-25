@@ -2,8 +2,8 @@ from flask import Flask, Response, abort, render_template, request, send_from_di
 from flask_sslify import SSLify
 from flask_json import FlaskJSON
 
-import auth as app_auth
-import blog_utils
+from utils import auth as app_auth
+from utils import blog as blog_utils
 from modules import admin, api
 
 app = Flask(__name__)
