@@ -13,12 +13,6 @@ def create_blog_post() -> Response:
     return blog_utils.create_blog(request.get_json())
 
 
-@bp.route("/admin/blog/delete", methods=["GET"])
-@app_auth.authenticate
-def delete_blog() -> Response:
-    return blog_utils.delete_blog()
-
-
 @bp.route("/admin/blog/delete", methods=["POST"])
 @app_auth.authenticate
 def delete_blog_post() -> Response:
