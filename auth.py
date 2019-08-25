@@ -1,6 +1,7 @@
 import base64
 from functools import wraps
 import os
+from typing import Dict, Any
 
 import bcrypt
 from flask import redirect, request
@@ -17,7 +18,7 @@ def authenticate(func):
 
         auth_token = request.cookies['admin_auth_token']
         s = _get_storage()
-        correct_token = s.get_blob('login_token').encode('UTF-8')
+        correct_token = s.get_blob('login_token').decode('utf8')
 
         if auth_token != correct_token:
             return redirect('/admin/login')

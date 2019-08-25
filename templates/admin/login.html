@@ -7,21 +7,65 @@
 {% block navbarId %}{% endblock %}
 
 {% block headElem %}
+<script>
+    $(document).ready(function() {
+        var snackbar = document.querySelector("#login-snackbar");
+        var loading_dialog = document.querySelector("#loading-dialog");
+        if (!loading_dialog.showModal) {
+            dialogPolyfill.registerDialog(loading_dialog);
+        }
+
+        $("#pswdform").submit(function (event) {
+            loading_dialog.showModal()
+            password = $("input[name=password]").val()
+            sent_data = JSON.stringify({"password": password})
+            console.log("Sent data: " + sent_data)
+            $.ajax({
+                url: "/admin/get_token",
+                type: "POST",
+                data: sent_data,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    if (data.status != 200) {
+                        loading_dialog.close();
+                        snackbar.MaterialSnackbar.showSnackbar({
+                            message: "Failed to login. Please check if the password is correct."
+                        });
+                        return false;
+                    }
+                    document.cookie = "admin_auth_token=" + data.token + ";path=/";
+                    window.location.replace("/admin");
+                    return false;
+                },
+            });
+            return false;
+        });
+    });
+</script>
 {% endblock %}
 
 {% block bodyElem %}
   <div class="mdl-grid portfolio-max-width">
+    <dialog class="mdl-dialog", id="loading-dialog">
+        <h4 class="mdl-dialog__title">Loading...</h4>
+        <div class="mdl-dialog__content" id="loading-dialog-content">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+        </div>
+    </dialog>
+
+
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
 
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Login</h2>
       </div>
 
-      <form method="post">
+      <form id="pswdform">
         <div class="mdl-grid portfolio-copy">
 
           <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="password" name="path" id="path-input"></input>
+            <input class="mdl-textfield__input" type="password" name="password" id="password-input"></input>
             <label class="mdl-textfield__label" for="path-input">Password</label>
           </div>
 
@@ -35,5 +79,10 @@
       </form>
 
     </div>
+  </div>
+
+  <div id="login-snackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
   </div>
 {% endblock %}
