@@ -19,7 +19,6 @@
             loading_dialog.showModal()
             password = $("input[name=password]").val()
             sent_data = JSON.stringify({"password": password})
-            console.log("Sent data: " + sent_data)
             $.ajax({
                 url: "/admin/get_token",
                 type: "POST",
