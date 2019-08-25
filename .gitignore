@@ -123,3 +123,4 @@ settings.cfg
 
 # Run file
 run.sh
+ipython.sh
