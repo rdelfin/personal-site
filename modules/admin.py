@@ -25,6 +25,12 @@ def delete_blog() -> Response:
     return blog_utils.delete_blog()
 
 
+@bp.route("/image/upload", methods=["GET"])
+@app_auth.authenticate
+def upload_image() -> Response:
+    return render_template("admin/add_image.html")
+
+
 @bp.route("/login", methods=["GET"])
 def login() -> Response:
     return render_template("admin/login.html")

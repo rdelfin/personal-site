@@ -1,0 +1,148 @@
+{% extends 'template.html' %}
+
+{% block name %}
+    Create Blog
+{% endblock %}
+
+{% block navbarId %}{% endblock %}
+
+{% block headElem %}
+<style>
+.file_input_div {
+  margin: auto;
+  width: 250px;
+  height: 40px;
+}
+
+.file_input {
+  float: left;
+}
+
+
+#file_input_text_div {
+  width: 200px;
+  margin-top: -8px;
+  margin-left: 5px;
+}
+
+.none {
+  display: none;
+}
+</style>
+<script>
+    $(document).ready(function() {
+        var snackbar = document.querySelector("#post-snackbar");
+        var loading_dialog = document.querySelector("#loading-dialog");
+        if (!loading_dialog.showModal) {
+            dialogPolyfill.registerDialog(loading_dialog);
+        }
+
+        var file_input = $("#file_input_file");
+        var file_text = $("#file_input_text");
+        var file_text_div = $("#file_input_text_div");
+
+        file_input.change(function() {
+            var path = file_input.val();
+            var name_idx = 0;
+
+            if(path.lastIndexOf('\\')) {
+                name_idx = path.lastIndexOf('\\') + 1;
+            } else if(path.lastIndexOf('/')) {
+                name_idx = path.lastIndexOf('/') + 1;
+            }
+
+            file_text.val(path.slice(name_idx, path.length));
+
+            if (file_text.val().length == 0) {
+                file_text_div.removeClass("is-focused");
+            } else {
+                file_text_div.addClass("is-focused");
+            }
+        });
+
+        $("#fileform").submit(function(event) {
+            loading_dialog.showModal();
+
+            // Load up data
+            var data = new FormData();
+            data.append("img", document.getElementById("file_input_file").files[0]);
+            console.log("DATA: " + JSON.stringify(data))
+            // return false;
+
+            $.ajax({
+                url: "/api/admin/image/add",
+                type: "POST",
+                data: data,
+                success: function(data) {
+                    if (data.status != 200) {
+                        loading_dialog.close();
+                        err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
+                        snackbar.MaterialSnackbar.showSnackbar({
+                            message: "Failed to upload image. " + err_msg
+                        });
+                        return false;
+                    }
+
+                    window.location.replace("/admin");
+                    return false;
+                },
+                failure: function(data) { return false; },
+            });
+
+
+            return false;
+        });
+    });
+</script>
+{% endblock %}
+
+{% block bodyElem %}
+  <div class="mdl-grid portfolio-max-width">
+    <dialog class="mdl-dialog", id="loading-dialog">
+      <h4 class="mdl-dialog__title">Loading...</h4>
+      <div class="mdl-dialog__content" id="loading-dialog-content">
+        <div class="mdl-spinner mdl-js-spinner is-active"></div>
+      </div>
+    </dialog>
+
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Upload Image</h2>
+      </div>
+
+      <form id="fileform">
+        <div class="mdl-grid portfolio-copy">
+
+          <div class="file_input_div">
+            <div class="file_input">
+              <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">file_upload</i>
+                <input id="file_input_file" class="none" type="file" name="img" />
+              </label>
+            </div>
+            <div id="file_input_text_div" class="mdl-textfield mdl-js-textfield textfield-demo">
+              <input class="file_input_text mdl-textfield__input" type="text" disabled readonly id="file_input_text" />
+              <label class="mdl-textfield__label" for="file_input_text"></label>
+            </div>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col">
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              Submit
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+
+  <div id="post-snackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+  </div>
+{% endblock %}
