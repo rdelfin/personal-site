@@ -30,6 +30,7 @@
 }
 </style>
 <script>
+
     $(document).ready(function() {
         var snackbar = document.querySelector("#post-snackbar");
         var loading_dialog = document.querySelector("#loading-dialog");
@@ -61,23 +62,26 @@
         });
 
         $("#fileform").submit(function(event) {
+            event.preventDefault();
             loading_dialog.showModal();
 
             // Load up data
-            var data = new FormData();
-            data.append("img", document.getElementById("file_input_file").files[0]);
-            console.log("DATA: " + JSON.stringify(data))
-            // return false;
+            var data = new FormData(this);
 
             $.ajax({
                 url: "/api/admin/image/add",
                 type: "POST",
                 data: data,
+                // These two make sure the data doesn't get serialized (and removed)
+                contentType: false,
+                processData: false,
+
                 success: function(data) {
                     if (data.status != 200) {
                         loading_dialog.close();
                         err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
                         snackbar.MaterialSnackbar.showSnackbar({
+                            timeout: 5000,
                             message: "Failed to upload image. " + err_msg
                         });
                         return false;

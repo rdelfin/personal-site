@@ -24,6 +24,8 @@ def delete_blog_post() -> Response:
 @bp.route("/admin/image/add", methods=["POST"])
 @app_auth.authenticate
 def add_image() -> Response:
+    print(f"FILES: {list(request.files.keys())}")
+    print(f"REQUEST: {request.get_data()}")
     if 'img' not in request.files:
         return json_response(
             ok=False, err="Request does not contain an image", status=400
