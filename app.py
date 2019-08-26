@@ -4,6 +4,7 @@ from flask_json import FlaskJSON
 
 from utils import auth as app_auth
 from utils import blog as blog_utils
+from utils import images as image_utils
 from modules import admin, api
 
 app = Flask(__name__)
@@ -22,6 +23,11 @@ def send_static(path):
 @app.route("/documents/<path:path>")
 def send_document(path):
     return send_from_directory("documents", path)
+
+
+@app.route("/img/<path:path>", methods=["GET"])
+def send_image(path):
+    return image_utils.get_request_image(path)
 
 
 @app.route("/")
