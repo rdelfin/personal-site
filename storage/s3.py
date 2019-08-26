@@ -41,7 +41,10 @@ class S3Storage(IStorage):
             if response["ResponseMetadata"]["HTTPStatusCode"] != 200:
                 raise KeyNotFoundError()
 
-            keys += [elem["Key"] for elem in response["Contents"]]
+            keys += [
+                elem["Key"]
+                for elem in (response["Contents"] if "Contents" in response else [])
+            ]
 
             try:
                 list_obj_kwargs["ContinuationToken"] = response["NextContinuationToken"]
