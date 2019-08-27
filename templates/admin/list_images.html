@@ -12,17 +12,74 @@
   width: 300px;
 }
 </style>
+
+<script>
+keys = [
+    {% for img in images %}"{{ img }}",
+    {% endfor %}
+];
+
+$(document).ready(function() {
+
+    var confirm_dialog = document.querySelector("#confirm-dialog");
+    if(!confirm_dialog.showModal) {
+        dialogPolyfill.registerDialog(confirm_dialog);
+    }
+
+    var loading_dialog = document.querySelector("#loading-dialog");
+    if (!loading_dialog.showModal) {
+        dialogPolyfill.registerDialog(loading_dialog);
+    }
+
+    keys.forEach(function (key, index) {
+        $("#delete-button-" + index).click(function() {
+            active_key = key;
+            $("#dialog-text").text("Are you sure you want to delete the image titled \"" + active_key + "\"?")
+            confirm_dialog.showModal();
+        });
+    });
+
+    $("#close-delete").click(function() {
+        confirm_dialog.close();
+    });
+
+    $("#confirmed-delete").click(function() {
+        confirm_dialog.close();
+        loading_dialog.showModal();
+    });
+
+});
+</script>
 {% endblock %}
 
 {% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
+    <dialog class="mdl-dialog", id="confirm-dialog">
+        <h4 class="mdl-dialog__title">Confirm deletion</h4>
+        <div class="mdl-dialog__content">
+            <p id="dialog-text"></p>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button" id="confirmed-delete">Yes</button>
+            <button type="button" class="mdl-button" id="close-delete">Cancel</button>
+        </div>
+    </dialog>
+
+    <dialog class="mdl-dialog", id="loading-dialog">
+        <h4 class="mdl-dialog__title">Loading...</h4>
+        <div class="mdl-dialog__content" id="loading-dialog-content">
+            <div class="mdl-spinner mdl-js-spinner is-active"></div>
+        </div>
+    </dialog>
+
     <div class="mdl-cell mdl-cell--12-col">
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text">Listing of all Images</h1>
         </div>
     </div>
 
-    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-cell mdl-cell--3-col"></div>
+    <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp portfolio-card">
         <ul class="mdl-list">
             {% for image in images %}
             <li class="mdl-list__item">
@@ -30,9 +87,14 @@
                     <img class="mdl-list__item-icon" src="/img/{{ image }}" />
                     <a href="/img/{{ image }}">{{ image }}</a>
                 </span>
+                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-list__item-secondary-action"
+                        id="delete-button-{{ loop.index0 }}">
+                    <i class="material-icons">delete</i>
+                </button>
             </li>
             {% endfor %}
         </ul>
     </div>
+    <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
 {% endblock %}
