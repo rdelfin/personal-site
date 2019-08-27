@@ -1,4 +1,4 @@
-from flask import Flask, Response, abort, render_template, request, send_from_directory
+from flask import Flask, Response, abort, render_template, request, send_file, send_from_directory
 from flask_sslify import SSLify
 from flask_json import FlaskJSON
 
@@ -18,6 +18,11 @@ app.register_blueprint(api.bp, url_prefix="/api")
 @app.route("/static/<path:path>")
 def send_static(path):
     return send_from_directory("static", path)
+
+
+@app.route("/favicon.ico")
+def send_favicon():
+    return send_file("static/favicon/favicon.ico")
 
 
 @app.route("/documents/<path:path>")
