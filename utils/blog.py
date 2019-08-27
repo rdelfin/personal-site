@@ -94,7 +94,10 @@ def _get_blog_template(blog: Blog) -> Response:
 def _get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
     try:
         return render_template(
-            "blog.html", blogs=sorted(blogs.items(), key=lambda kv: kv[1].creation_time)
+            "blog.html",
+            blogs=sorted(
+                blogs.items(), reverse=True, key=lambda kv: kv[1].creation_time
+            ),
         )
     except TemplateNotFound:
         abort(404)
