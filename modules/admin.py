@@ -2,6 +2,7 @@ from flask import Blueprint, Response, render_template
 
 from utils import auth as app_auth
 from utils import blog as blog_utils
+from utils import images as image_utils
 
 
 bp = Blueprint("admin", __name__)
@@ -29,6 +30,11 @@ def delete_blog() -> Response:
 @app_auth.authenticate
 def upload_image() -> Response:
     return render_template("admin/add_image.html")
+
+
+@bp.route("/image/list", methods=["GET"])
+def list_images() -> Response:
+    return image_utils.list_images_template()
 
 
 @bp.route("/login", methods=["GET"])
