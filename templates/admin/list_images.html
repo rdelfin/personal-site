@@ -1,0 +1,38 @@
+{% extends 'template.html' %}
+
+{% block name %}
+    List Images
+{% endblock %}
+
+{% block navbarId %}{% endblock %}
+
+{% block headElem %}
+<style>
+.demo-list-icon {
+  width: 300px;
+}
+</style>
+{% endblock %}
+
+{% block bodyElem %}
+<div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col">
+        <div class="mdl-card__title">
+            <h1 class="mdl-card__title-text">Listing of all Images</h1>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp portfolio-card">
+        <ul class="mdl-list">
+            {% for image in images %}
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <img class="mdl-list__item-icon" src="/img/{{ image }}" />
+                    <a href="/img/{{ image }}">{{ image }}</a>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

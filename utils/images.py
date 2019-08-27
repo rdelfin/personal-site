@@ -1,6 +1,6 @@
 import io
 
-from flask import abort, send_file, Response
+from flask import abort, render_template, send_file, Response
 from flask_json import json_response
 
 from storage import StorageFactory, StorageType
@@ -49,3 +49,10 @@ def get_request_image(img_name) -> Response:
 
     return send_file(io.BytesIO(blob), mimetype=EXT_MIME_MAP[ext])
 
+def list_images_template() -> Response:
+    s = _get_storage()
+    images = s.list_blobs('imgs/')
+
+    return render_template(
+        "admin/list_images.html", images=sorted([img.split("/")[-1] for img in images])
+    )
