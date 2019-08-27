@@ -34,6 +34,12 @@ def add_image() -> Response:
     return images_utils.add_image(request.files['img'])
 
 
+@bp.route("/admin/image/delete", methods=["POST"])
+@app_auth.authenticate
+def delete_image() -> Response:
+    return images_utils.delete_image(request.get_json())
+
+
 @bp.route("/admin/get_token", methods=["POST"])
 def get_token() -> Response:
     return app_auth.get_login_token(request.get_json())
