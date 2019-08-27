@@ -18,6 +18,7 @@ keys = [
     {% for img in images %}"{{ img }}",
     {% endfor %}
 ];
+var active_key;
 
 $(document).ready(function() {
 
@@ -30,6 +31,8 @@ $(document).ready(function() {
     if (!loading_dialog.showModal) {
         dialogPolyfill.registerDialog(loading_dialog);
     }
+
+    var snackbar = document.querySelector("#delete-snackbar");
 
     keys.forEach(function (key, index) {
         $("#delete-button-" + index).click(function() {
@@ -46,6 +49,26 @@ $(document).ready(function() {
     $("#confirmed-delete").click(function() {
         confirm_dialog.close();
         loading_dialog.showModal();
+        $.ajax({
+            url: "/api/admin/image/delete",
+            type: "POST",
+            data: JSON.stringify({"name": active_key}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                if(data.status != 200) {
+                    loading_dialog.close();
+                    err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
+                    snackbar.MaterialSnackbar.showSnackbar({
+                        timeout: 5000,
+                        message: "Failed to delete image \"" + active_key + "\". " + err_msg
+                    });
+                } else {
+                    location.reload();
+                }
+            },
+            failure: function(data) { location.reload(); },
+        });
     });
 
 });
@@ -96,5 +119,10 @@ $(document).ready(function() {
         </ul>
     </div>
     <div class="mdl-cell mdl-cell--3-col"></div>
+</div>
+
+<div id="delete-snackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+<button class="mdl-snackbar__action" type="button"></button>
 </div>
 {% endblock %}
