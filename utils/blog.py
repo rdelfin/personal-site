@@ -39,9 +39,9 @@ def delete_single_blog(data: Dict[str, Any]) -> Response:
     return json_response(ok=False, err=f"Blog {data['path']} was not found.", status=404)
 
 
-def delete_blog() -> Response:
+def list_blogs() -> Response:
     blogs = _fetch_all_blogs()
-    return _delete_blog_list_template(blogs)
+    return _list_blog_template(blogs)
 
 
 class InvalidBlogKeyError(Exception):
@@ -102,9 +102,9 @@ def _get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
     except TemplateNotFound:
         abort(404)
 
-def _delete_blog_list_template(blogs: Dict[str, Blog]) -> Response:
+def _list_blog_template(blogs: Dict[str, Blog]) -> Response:
     try:
-        return render_template("admin/delete_blog.html", blogs=blogs)
+        return render_template("admin/list_blogs.html", blogs=blogs)
     except TemplateNotFound:
         abort(404)
 
