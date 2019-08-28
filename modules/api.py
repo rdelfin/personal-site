@@ -26,11 +26,15 @@ def delete_blog_post() -> Response:
     return blog_utils.delete_single_blog(request.get_json())
 
 
+@bp.route("/admin/blog/update", methods=["POST"])
+@app_auth.authenticate
+def update_blog_post() -> Response:
+    return blog_utils.update_blog(request.get_json())
+
+
 @bp.route("/admin/image/add", methods=["POST"])
 @app_auth.authenticate
 def add_image() -> Response:
-    print(f"FILES: {list(request.files.keys())}")
-    print(f"REQUEST: {request.get_data()}")
     if 'img' not in request.files:
         return json_response(
             ok=False, err="Request does not contain an image", status=400

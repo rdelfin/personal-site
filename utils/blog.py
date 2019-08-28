@@ -61,6 +61,43 @@ def delete_single_blog(data: Dict[str, Any]) -> Response:
     return json_response(ok=False, err=f"Blog {data['path']} was not found.", status=404)
 
 
+def update_blog(data: Dict[str, Any]) -> Response:
+    data_keys = [
+        'path',
+        'title',
+        'header-img',
+        'header-cap-strong',
+        'header-cap-rest',
+        'teaser',
+        'content',
+    ]
+
+    if not all(k in data for k in data_keys):
+        return json_response(
+            ok=False, err="The request to update blog is missing data.", status=400
+        )
+
+    s = StorageFactory.create(StorageType.S3)
+    path = f"blogs/{data['path']}.blob"
+    try:
+        blob = s.get_blob(path)
+    except KeyNotFoundError:
+        return json_response(
+            ok=False, err=f"The blog {data['path']} was not found", status=404
+        )
+
+    blog = Blog.FromString(blob)
+    blog.modification_time = int(time.time())
+    blog.name = data['title']
+    blog.header_image.path = data['header-img']
+    blog.header_image.caption_strong = data['header-cap-strong']
+    blog.header_image.caption_cont = data['header-cap-rest']
+    blog.teaser = data['teaser']
+    blog.markdown_content = data['content']
+
+    s.put_blob(path, blog.SerializeToString())
+    return json_response(ok=True)
+
 def list_blogs() -> Response:
     blogs = _fetch_all_blogs()
     return _list_blog_template(blogs)
