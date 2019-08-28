@@ -2,10 +2,13 @@ from datetime import datetime
 from flask import Response, abort, redirect, render_template
 from flask_json import json_response
 from jinja2.exceptions import TemplateNotFound
+import json
 import markdown2
 import re
 import time
 from typing import Any, Dict
+
+from google.protobuf.json_format import MessageToJson as proto_to_json
 
 from iface.gen.blog_pb2 import Blog, HeaderImage
 from storage import StorageFactory, StorageType
@@ -20,6 +23,25 @@ def respond_blog(name: str) -> Response:
 def respond_blog_list() -> Response:
     blogs = _fetch_all_blogs()
     return _get_blog_list_template(blogs)
+
+
+def get_blog(data: Dict[str, Any]) -> Response:
+    if 'path' not in data:
+        return json_response(
+            ok=False, err=f'Request does not contain blog path', status=400
+        )
+
+    s = StorageFactory.create(StorageType.S3)
+
+    try:
+        blob = s.get_blob(f"blogs/{data['path']}.blob")
+    except KeyNotFoundError:
+        return json_response(
+            ok=False, err=f'Blog with path "{data["path"]}" does not exist', status=404
+        )
+    blog = Blog.FromString(blob)
+    dict_blog = json.loads(proto_to_json(blog))
+    return json_response(ok=True, path=data["path"], **dict_blog)
 
 
 def create_blog(data: Dict[str, Any]) -> Response:

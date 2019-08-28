@@ -9,6 +9,11 @@ from utils import images as images_utils
 bp = Blueprint("api", __name__)
 
 
+@bp.route("/blog/get", methods=["GET"])
+def get_blog_post() -> Response:
+    return blog_utils.get_blog({"path": request.args.get("path")})
+
+
 @bp.route("/admin/blog/create", methods=["POST"])
 @app_auth.authenticate
 def create_blog_post() -> Response:
