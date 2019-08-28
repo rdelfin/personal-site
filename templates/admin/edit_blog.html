@@ -15,6 +15,41 @@
             dialogPolyfill.registerDialog(loading_dialog);
         }
 
+        var url = new URL(window.location.href);
+        var path = url.searchParams.get("path");
+
+        $("#path-input").val(path);
+        loading_dialog.showModal();
+
+        $.ajax({
+            url: "/api/blog/get",
+            type: "GET",
+            data: {"path": path},
+            success: function(data) {
+                if (data.status != 200) {
+                    loading_dialog.close();
+                    err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
+                    snackbar.MaterialSnackbar.showSnackbar({
+                        message: "Failed to load blog. " + err_msg
+                    });
+                    loading_dialog.close();
+                    return;
+                }
+
+                loading_dialog.close();
+                $("#title-input").val(data["name"]).parent().addClass("is-dirty");
+                $("#header-image-input").val(data["headerImage"]["path"])
+                    .parent().addClass("is-dirty");
+                $("#header-cap-strong-input").val(data["headerImage"]["captionStrong"])
+                    .parent().addClass("is-dirty");
+                $("#header-cap-rest-input").val(data["headerImage"]["captionCont"])
+                    .parent().addClass("is-dirty");
+                $("#teaser-input").val(data["teaser"]).parent().addClass("is-dirty");
+                $("#content-input").val(data["markdownContent"])
+                    .parent().addClass("is-dirty");
+            }
+        });
+
         $("#postform").submit(function(event) {
             loading_dialog.showModal();
 
@@ -29,7 +64,7 @@
                 "content": $("textarea[name=content]").val(),
             }
             $.ajax({
-                url: "/api/admin/blog/create",
+                url: "/api/admin/blog/update",
                 type: "POST",
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
@@ -68,14 +103,15 @@
     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
 
       <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Create Blog Post</h2>
+        <h2 class="mdl-card__title-text">Edit Blog Post</h2>
       </div>
 
       <form id="postform">
         <div class="mdl-grid portfolio-copy">
 
           <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" name="path" id="path-input" />
+            <input class="mdl-textfield__input" type="text" name="path" id="path-input"
+                readonly />
             <label class="mdl-textfield__label" for="path-input">Path</label>
           </div>
 
