@@ -54,8 +54,9 @@
             loading_dialog.showModal();
 
             // Load up data
+            new_path = $("input[name=path]").val()
             data = {
-                "path": $("input[name=path]").val(),
+                "path": new_path,
                 "title": $("input[name=title]").val(),
                 "header-img": $("input[name=header-img]").val(),
                 "header-cap-strong": $("input[name=header-cap-strong]").val(),
@@ -78,8 +79,7 @@
                         });
                         return false;
                     }
-
-                    window.location.replace("/blog/post_" + data["path"]);
+                    window.location.replace("/blog/post_" + new_path);
                     return false;
                 },
             });
