@@ -20,10 +20,16 @@ def create_blog() -> Response:
     return render_template("admin/create_blog.html")
 
 
-@bp.route("/blog/delete", methods=["GET"])
+@bp.route("/blog/edit", methods=["GET"])
+@app_auth.authenticate
+def edit_blog() -> Response:
+    return render_template("admin/edit_blog.html")
+
+
+@bp.route("/blog/list", methods=["GET"])
 @app_auth.authenticate
 def delete_blog() -> Response:
-    return blog_utils.delete_blog()
+    return blog_utils.list_blogs()
 
 
 @bp.route("/image/upload", methods=["GET"])

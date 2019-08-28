@@ -2,10 +2,13 @@ from datetime import datetime
 from flask import Response, abort, redirect, render_template
 from flask_json import json_response
 from jinja2.exceptions import TemplateNotFound
+import json
 import markdown2
 import re
 import time
 from typing import Any, Dict
+
+from google.protobuf.json_format import MessageToJson as proto_to_json
 
 from iface.gen.blog_pb2 import Blog, HeaderImage
 from storage import StorageFactory, StorageType
@@ -20,6 +23,25 @@ def respond_blog(name: str) -> Response:
 def respond_blog_list() -> Response:
     blogs = _fetch_all_blogs()
     return _get_blog_list_template(blogs)
+
+
+def get_blog(data: Dict[str, Any]) -> Response:
+    if 'path' not in data:
+        return json_response(
+            ok=False, err=f'Request does not contain blog path', status=400
+        )
+
+    s = StorageFactory.create(StorageType.S3)
+
+    try:
+        blob = s.get_blob(f"blogs/{data['path']}.blob")
+    except KeyNotFoundError:
+        return json_response(
+            ok=False, err=f'Blog with path "{data["path"]}" does not exist', status=404
+        )
+    blog = Blog.FromString(blob)
+    dict_blog = json.loads(proto_to_json(blog))
+    return json_response(ok=True, path=data["path"], **dict_blog)
 
 
 def create_blog(data: Dict[str, Any]) -> Response:
@@ -39,9 +61,46 @@ def delete_single_blog(data: Dict[str, Any]) -> Response:
     return json_response(ok=False, err=f"Blog {data['path']} was not found.", status=404)
 
 
-def delete_blog() -> Response:
+def update_blog(data: Dict[str, Any]) -> Response:
+    data_keys = [
+        'path',
+        'title',
+        'header-img',
+        'header-cap-strong',
+        'header-cap-rest',
+        'teaser',
+        'content',
+    ]
+
+    if not all(k in data for k in data_keys):
+        return json_response(
+            ok=False, err="The request to update blog is missing data.", status=400
+        )
+
+    s = StorageFactory.create(StorageType.S3)
+    path = f"blogs/{data['path']}.blob"
+    try:
+        blob = s.get_blob(path)
+    except KeyNotFoundError:
+        return json_response(
+            ok=False, err=f"The blog {data['path']} was not found", status=404
+        )
+
+    blog = Blog.FromString(blob)
+    blog.modification_time = int(time.time())
+    blog.name = data['title']
+    blog.header_image.path = data['header-img']
+    blog.header_image.caption_strong = data['header-cap-strong']
+    blog.header_image.caption_cont = data['header-cap-rest']
+    blog.teaser = data['teaser']
+    blog.markdown_content = data['content']
+
+    s.put_blob(path, blog.SerializeToString())
+    return json_response(ok=True)
+
+def list_blogs() -> Response:
     blogs = _fetch_all_blogs()
-    return _delete_blog_list_template(blogs)
+    return _list_blog_template(blogs)
 
 
 class InvalidBlogKeyError(Exception):
@@ -102,9 +161,9 @@ def _get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
     except TemplateNotFound:
         abort(404)
 
-def _delete_blog_list_template(blogs: Dict[str, Blog]) -> Response:
+def _list_blog_template(blogs: Dict[str, Blog]) -> Response:
     try:
-        return render_template("admin/delete_blog.html", blogs=blogs)
+        return render_template("admin/list_blogs.html", blogs=blogs)
     except TemplateNotFound:
         abort(404)
 
