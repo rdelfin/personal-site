@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% set admin = admin|default(False) %}
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -60,6 +61,7 @@
                         <a class="mdl-navigation__link" id="nav-resume" href="/documents/resume.pdf">Resume</a>
                         <a class="mdl-navigation__link" id="nav-contact" href="/contact">Contact</a>
                         <a class="mdl-navigation__link" id="nav-blog" href="/blog">Blog</a>
+                        {% if admin %}<a class="mdl-navigation__link" id="nav-admin" href="/admin">Admin</a>{% endif %}
                     </nav>
                 </div>
             </header>
@@ -71,6 +73,7 @@
                     <a class="mdl-navigation__link" href="/documents/resume.pdf">Resume</a>
                     <a class="mdl-navigation__link" href="/contact">Contact</a>
                     <a class="mdl-navigation__link" href="/blog">Blog</a>
+                    {% if admin %}<a class="mdl-navigation__link" href="/admin">Admin</a>{% endif %}
                 </nav>
             </div>
             <main class="mdl-layout__content">
