@@ -142,7 +142,9 @@ def _get_blog_template(blog: Blog) -> Response:
             "blog_page.html",
             header_image=blog.header_image,
             blog_title=blog.name,
-            html_content=markdown2.markdown(blog.markdown_content),
+            html_content=markdown2.markdown(
+                blog.markdown_content, extras=["fenced-code-blocks"]
+            ),
             creation_date=f"{datetime.fromtimestamp(blog.creation_time)} UTC",
             modified_date=f"{datetime.fromtimestamp(blog.modification_time)} UTC",
         )
