@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block headElem %}
-
+<link rel="stylesheet" type="text/css" href="/static/css/pygments_code.css" />
 {% endblock %}
 
 {% block navbarId %}nav-blog{% endblock %}
@@ -29,7 +29,8 @@
       <span>{{ header_image.caption_cont }}</span>
     </div>
     <div class="mdl-grid portfolio-copy">
-      <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding">
+      <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding"
+           id="blog-content">
         {{ html_content|safe }}
       </div>
     </div>
