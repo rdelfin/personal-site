@@ -1,7 +1,7 @@
 {% extends 'template.html' %}
 
 {% block name %}
-    Blog
+Blog Tag - {{ tag.name }}
 {% endblock %}
 
 {% block navbarId %}nav-blog{% endblock %}
@@ -12,19 +12,18 @@
 
 {% block bodyElem %}
 <div class="mdl-grid portfolio-max-width">
-    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-cell mdl-cell--12-col">
+        <div class="mdl-card__media">
+            <img class="article-image" src="{{ tag.image_path }}" border="0" alt="" />
+        </div>
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Want to browse by topics?</h2>
+            <h1 class="mdl-card__title-text">Blogs with Tag "{{ tag.name }}"</h1>
         </div>
         <div class="mdl-card__supporting-text">
-            This listing contains all my blog entries in chronological order. If you'd
-            rather read them by topic, click below.
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
-                href="/blog/tags">Blogs by tags</a>
+            {{ tag.description }}
         </div>
     </div>
+
     {% for key, blog in blogs %}
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">

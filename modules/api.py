@@ -4,6 +4,7 @@ from flask_json import json_response
 from utils import auth as app_auth
 from utils import blog as blog_utils
 from utils import images as images_utils
+from utils import tags as tag_utils
 
 
 bp = Blueprint("api", __name__)
@@ -12,6 +13,29 @@ bp = Blueprint("api", __name__)
 @bp.route("/blog/get", methods=["GET"])
 def get_blog_post() -> Response:
     return blog_utils.get_blog({"path": request.args.get("path")})
+
+
+@bp.route("/tags", methods=["GET"])
+def get_tags() -> Response:
+    return tag_utils.get_tags()
+
+
+@bp.route("/admin/tags/add", methods=["POST"])
+@app_auth.authenticate
+def add_tag() -> Response:
+    return tag_utils.add_tag_req(request.get_json())
+
+
+@bp.route("/admin/tags/delete", methods=["POST"])
+@app_auth.authenticate
+def delete_tag() -> Response:
+    return tag_utils.delete_tag_req(request.get_json())
+
+
+@bp.route("/admin/tags/update", methods=["POST"])
+@app_auth.authenticate
+def update_tag() -> Response:
+    return tag_utils.update_tag_req(request.get_json())
 
 
 @bp.route("/admin/blog/create", methods=["POST"])

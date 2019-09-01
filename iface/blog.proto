@@ -27,4 +27,13 @@ message Blog {
     // Unix timestamps (UTC)
     int64 creation_time = 6;
     int64 modification_time = 7;
+
+    // Tags
+    repeated string tags = 8;
+}
+
+message Tag {
+    string name = 1;
+    string image_path = 2;
+    string description = 3;
 }

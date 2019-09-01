@@ -44,7 +44,11 @@ div.codehilite {
     </div>
     <div class="mdl-card__supporting-text">
       Created at {{ creation_date }}<br />
-      Last modified at {{ modified_date }}
+      Last modified at {{ modified_date }}<br />
+      Tags:
+      {% for tag in tags %}
+      <a href="/blog/tag/{{ tag }}"><strong>{{ tag }}</strong></a>
+      {{ ", "if not loop.last }}{% endfor %}
     </div>
     <div class="mdl-card__media">
       <img class="article-image" src="{{ header_image.path }}" border="0" alt="">

@@ -6,11 +6,12 @@ import json
 import markdown2
 import re
 import time
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from google.protobuf.json_format import MessageToJson as proto_to_json
 
 from iface.gen.blog_pb2 import Blog, HeaderImage
+from utils import tags as tag_utils
 from storage import StorageFactory, StorageType
 from storage.interface import KeyNotFoundError
 
@@ -44,6 +45,15 @@ def get_blog(data: Dict[str, Any]) -> Response:
     return json_response(ok=True, path=data["path"], **dict_blog)
 
 
+def get_blogs_with_tag(tag: str) -> Dict[str, Blog]:
+    s = StorageFactory.create(StorageType.S3)
+
+    blogs = {
+        path[6:-5]: Blog.FromString(s.get_blob(path)) for path in s.list_blobs('blogs/')
+    }
+    return {k: blog for k, blog in blogs.items() if tag in blog.tags}
+
+
 def create_blog(data: Dict[str, Any]) -> Response:
     return _create_blog(
         data["path"],
@@ -53,6 +63,7 @@ def create_blog(data: Dict[str, Any]) -> Response:
         data["header-cap-rest"],
         data["teaser"],
         data["content"],
+        data["tags"],
     )
 
 def delete_single_blog(data: Dict[str, Any]) -> Response:
@@ -70,6 +81,7 @@ def update_blog(data: Dict[str, Any]) -> Response:
         'header-cap-rest',
         'teaser',
         'content',
+        'tags',
     ]
 
     if not all(k in data for k in data_keys):
@@ -86,6 +98,15 @@ def update_blog(data: Dict[str, Any]) -> Response:
             ok=False, err=f"The blog {data['path']} was not found", status=404
         )
 
+    # Make sure all tags already exist
+    all_tags = [tag.name for tag in tag_utils.list_tags()]
+    if not all(tag in all_tags for tag in data['tags']):
+        return json_response(
+            ok=False,
+            err=f"Some of the tags provided do not already exist.",
+            status=400,
+        )
+
     blog = Blog.FromString(blob)
     blog.modification_time = int(time.time())
     blog.name = data['title']
@@ -94,6 +115,11 @@ def update_blog(data: Dict[str, Any]) -> Response:
     blog.header_image.caption_cont = data['header-cap-rest']
     blog.teaser = data['teaser']
     blog.markdown_content = data['content']
+
+    for _ in range(len(blog.tags)):
+        blog.tags.pop()
+    for tag in data['tags']:
+        blog.tags.append(tag)
 
     s.put_blob(path, blog.SerializeToString())
     return json_response(ok=True)
@@ -147,6 +173,7 @@ def _get_blog_template(blog: Blog) -> Response:
             ),
             creation_date=f"{datetime.fromtimestamp(blog.creation_time)} UTC",
             modified_date=f"{datetime.fromtimestamp(blog.modification_time)} UTC",
+            tags=list(blog.tags),
         )
     except TemplateNotFound:
         abort(404)
@@ -191,6 +218,7 @@ def _create_blog(
     header_caption_rest: str,
     teaser: str,
     content: str,
+    tags: List[str],
 ) -> Response:
     storage = StorageFactory.create(StorageType.S3)
     blog_path = f"blogs/{path}.blob"
@@ -198,6 +226,15 @@ def _create_blog(
     if blog_path in storage.list_blobs("blogs"):
         return json_response(
             ok=False, err=f"Blog titled {path} already exists", status=400
+        )
+
+    # Make sure all tags already exist
+    all_tags = [tag.name for tag in tag_utils.list_tags()]
+    if not all(tag in all_tags for tag in tags):
+        return json_response(
+            ok=False,
+            err=f"Some of the tags provided do not already exist.",
+            status=400,
         )
 
     ts = int(time.time())
@@ -212,6 +249,7 @@ def _create_blog(
         markdown_content=content,
         creation_time=ts,
         modification_time=ts,
+        tags=tags,
     )
 
     blob = blog.SerializeToString()
