@@ -3,9 +3,8 @@ from flask_sslify import SSLify
 from flask_json import FlaskJSON
 
 from utils import auth as app_auth
-from utils import blog as blog_utils
 from utils import images as image_utils
-from modules import admin, api
+from modules import admin, api, blog
 
 app = Flask(__name__)
 sslify = SSLify(app)
@@ -13,6 +12,7 @@ json = FlaskJSON(app)
 
 app.register_blueprint(admin.bp, url_prefix="/admin")
 app.register_blueprint(api.bp, url_prefix="/api")
+app.register_blueprint(blog.bp, url_prefix="/blog")
 
 
 @app.route("/static/<path:path>")
@@ -40,11 +40,6 @@ def index():
     return render_template("home.html")
 
 
-@app.route("/blog")
-def blog():
-    return blog_utils.respond_blog_list()
-
-
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
@@ -63,11 +58,6 @@ def car_project():
 @app.route("/projects/twitcher")
 def twitcher_project():
     return render_template("projects/twitcher.html")
-
-
-@app.route("/blog/post_<post_name>")
-def blog_post(post_name: str) -> Response:
-    return blog_utils.respond_blog(post_name)
 
 
 # run the app.
