@@ -45,6 +45,15 @@ def get_blog(data: Dict[str, Any]) -> Response:
     return json_response(ok=True, path=data["path"], **dict_blog)
 
 
+def get_blogs_with_tag(tag: str) -> Dict[str, Blog]:
+    s = StorageFactory.create(StorageType.S3)
+
+    blogs = {
+        path[6:-5]: Blog.FromString(s.get_blob(path)) for path in s.list_blobs('blogs/')
+    }
+    return {k: blog for k, blog in blogs.items() if tag in blog.tags}
+
+
 def create_blog(data: Dict[str, Any]) -> Response:
     return _create_blog(
         data["path"],

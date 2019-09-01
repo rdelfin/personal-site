@@ -1,0 +1,45 @@
+{% extends 'template.html' %}
+
+{% block name %}
+Blog Tag - {{ tag.name }}
+{% endblock %}
+
+{% block navbarId %}nav-blog{% endblock %}
+
+{%block headElem %}
+
+{% endblock %}
+
+{% block bodyElem %}
+<div class="mdl-grid portfolio-max-width">
+    <div class="mdl-cell mdl-cell--12-col">
+        <div class="mdl-card__media">
+            <img class="article-image" src="{{ tag.image_path }}" border="0" alt="" />
+        </div>
+        <div class="mdl-card__title">
+            <h1 class="mdl-card__title-text">Blogs With Tag {{ tag.name }}</h1>
+        </div>
+        <div class="mdl-card__supporting-text">
+            {{ tag.description }}
+        </div>
+    </div>
+
+    {% for key, blog in blogs %}
+    <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+        <div class="mdl-card__media">
+            <img class="article-image" src="{{ blog.header_image.path }}" border="0" alt="" />
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">{{ blog.name }}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            {{ blog.teaser }}...
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent"
+                href="/blog/post_{{ key }}">Read more</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

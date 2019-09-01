@@ -1,5 +1,5 @@
 import json
-from typing import Dict, Iterable, List, Any
+from typing import Any, Dict, Iterable, List, Optional
 
 from flask import abort, render_template, send_file, Response
 from flask_json import json_response
@@ -24,6 +24,14 @@ def get_tags() -> Response:
     return json_response(
         ok=True, tags={tag.name: json.loads(ProtoBufToJson(tag)) for tag in tags}
     )
+
+
+def get_tag(tag_name: str) -> Optional[Tag]:
+    s = _get_storage()
+    try:
+        return Tag.FromString(s.get_blob(f"tags/{tag_name}.blob"))
+    except KeyNotFoundError:
+        return None
 
 
 def list_tag_req() -> Response:
