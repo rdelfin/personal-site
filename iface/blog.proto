@@ -31,3 +31,9 @@ message Blog {
     // Tags
     repeated string tags = 8;
 }
+
+message Tag {
+    string name = 1;
+    string image_path = 2;
+    string description = 3;
+}
