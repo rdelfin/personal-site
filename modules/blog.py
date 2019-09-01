@@ -27,5 +27,6 @@ def tag(tag_name: str) -> Response:
     if not tag:
         abort(404)
     blogs = blog_utils.get_blogs_with_tag(tag_name)
+    sorted_blogs = sorted(blogs.items(), reverse=True, key=lambda t: t[1].creation_time)
 
-    return render_template("blog_tag_page.html", tag=tag, blogs=blogs.items())
+    return render_template("blog_tag_page.html", tag=tag, blogs=sorted_blogs)
