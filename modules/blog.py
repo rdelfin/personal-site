@@ -19,7 +19,7 @@ def blog_post(post_name: str) -> Response:
 @bp.route("/tags", methods=["GET"])
 def tags() -> Response:
     tags = tag_utils.list_tags()
-    return render_template('blog_tags.html', tags=tags)
+    return render_template('blog_tags.html', tags=sorted(tags, key=lambda t: t.name))
 
 @bp.route("/tag/<tag_name>", methods=["GET"])
 def tag(tag_name: str) -> Response:

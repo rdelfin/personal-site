@@ -40,7 +40,9 @@ def list_tag_req() -> Response:
     tag_list = s.list_blobs('tags/')
     tags = [Tag.FromString(s.get_blob(tag_path)) for tag_path in tag_list]
 
-    return render_template("admin/list_tags.html", tags=tags)
+    return render_template(
+        "admin/list_tags.html", tags=sorted(tags, key=lambda t: t.name)
+    )
 
 
 def list_tags() -> List[Tag]:
