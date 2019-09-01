@@ -43,6 +43,12 @@ def list_images() -> Response:
     return image_utils.list_images_template()
 
 
+@bp.route("/tags/create", methods=["GET"])
+@app_auth.authenticate
+def create_tag() -> Response:
+    return render_template("admin/create_tag.html")
+
+
 @bp.route("/login", methods=["GET"])
 def login() -> Response:
     return render_template("admin/login.html")

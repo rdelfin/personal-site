@@ -1,0 +1,118 @@
+{% extends 'template.html' %}
+{% set admin = True %}
+
+{% block name %}
+    Create Blog
+{% endblock %}
+
+{% block navbarId %}nav-admin{% endblock %}
+
+{% block headElem %}
+<script type="text/javascript" src="/static/js/jquery.caret.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tag-editor.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/jquery.tag-editor.css" />
+
+<script>
+    $(document).ready(function() {
+        var snackbar = document.querySelector("#post-snackbar");
+        var loading_dialog = document.querySelector("#loading-dialog");
+        if (!loading_dialog.showModal) {
+            dialogPolyfill.registerDialog(loading_dialog);
+        }
+
+        $("#postform").submit(function(event) {
+            loading_dialog.showModal();
+
+            // Load up data
+            var new_path = $("input[name=path]").val();
+            post_data = {
+                "name": $("input[name=name]").val(),
+                "image_path": $("input[name=img-path]").val(),
+                "description": $("textarea[name=description]").val(),
+            }
+            $.ajax({
+                url: "/api/admin/tags/add",
+                type: "POST",
+                data: JSON.stringify(post_data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    if (data.status != 200) {
+                        loading_dialog.close();
+                        err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
+                        snackbar.MaterialSnackbar.showSnackbar({
+                            message: "Failed to create tag. " + err_msg
+                        });
+                        return false;
+                    }
+
+                    window.location.replace("/admin");
+                    return false;
+                },
+            });
+
+
+            return false;
+        });
+    });
+</script>
+
+<style>
+#content-input {
+    font-family: "Lucida Console", Monaco, monospace;
+}
+</style>
+{% endblock %}
+
+{% block bodyElem %}
+  <div class="mdl-grid portfolio-max-width">
+    <dialog class="mdl-dialog", id="loading-dialog">
+      <h4 class="mdl-dialog__title">Loading...</h4>
+      <div class="mdl-dialog__content" id="loading-dialog-content">
+        <div class="mdl-spinner mdl-js-spinner is-active"></div>
+      </div>
+    </dialog>
+
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Create Tag</h2>
+      </div>
+
+      <form id="postform">
+        <div class="mdl-grid portfolio-copy">
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="name" id="name-input" />
+            <label class="mdl-textfield__label" for="name-input">Name</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="img-path" id="img-path-input" />
+            <label class="mdl-textfield__label" for="img-path-input">Image URL</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" name="description" id="description-input" rows= "3"></textarea>
+            <label class="mdl-textfield__label" for="description-input">Description</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col">
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              Submit
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+
+  <div id="post-snackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+  </div>
+{% endblock %}
