@@ -89,8 +89,14 @@ def update_blog(data: Dict[str, Any]) -> Response:
             ok=False, err=f"The blog {data['path']} was not found", status=404
         )
 
-    # Make sure any new tags get added
-    tag_utils.add_tags(data['tags'])
+    # Make sure all tags already exist
+    all_tags = [tag.name for tag in tag_utils.list_tags()]
+    if not all(tag in all_tags for tag in data['tags']):
+        return json_response(
+            ok=False,
+            err=f"Some of the tags provided do not already exist.",
+            status=400,
+        )
 
     blog = Blog.FromString(blob)
     blog.modification_time = int(time.time())
@@ -213,8 +219,14 @@ def _create_blog(
             ok=False, err=f"Blog titled {path} already exists", status=400
         )
 
-    # Make sure any new tags get added
-    tag_utils.add_tags(tags)
+    # Make sure all tags already exist
+    all_tags = [tag.name for tag in tag_utils.list_tags()]
+    if not all(tag in all_tags for tag in tags):
+        return json_response(
+            ok=False,
+            err=f"Some of the tags provided do not already exist.",
+            status=400,
+        )
 
     ts = int(time.time())
     blog = Blog(

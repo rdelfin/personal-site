@@ -1,5 +1,5 @@
 import json
-from typing import Dict, Iterable, Any
+from typing import Dict, Iterable, List, Any
 
 from flask import abort, render_template, send_file, Response
 from flask_json import json_response
@@ -33,6 +33,13 @@ def list_tag_req() -> Response:
     tags = [Tag.FromString(s.get_blob(tag_path)) for tag_path in tag_list]
 
     return render_template("admin/list_tags.html", tags=tags)
+
+
+def list_tags() -> List[Tag]:
+    s = _get_storage()
+
+    tag_list = s.list_blobs('tags/')
+    return [Tag.FromString(s.get_blob(tag_path)) for tag_path in tag_list]
 
 
 def add_tag_req(data: Dict[str, Any]) -> Response:

@@ -13,6 +13,8 @@
 <link rel="stylesheet" type="text/css" href="/static/css/jquery.tag-editor.css" />
 
 <script>
+    var all_tags = [];
+    var blog_tags = [];
     $(document).ready(function() {
         var snackbar = document.querySelector("#post-snackbar");
         var loading_dialog = document.querySelector("#loading-dialog");
@@ -25,17 +27,6 @@
 
         $("#path-input").val(path);
         loading_dialog.showModal();
-
-        $("#tags-input").tagEditor({
-            autocomplete: {
-                delay: 0, // show suggestions immediately
-                position: { collision: 'flip' }, // automatic menu position up/down
-                source: [],
-            },
-            forceLowercase: false,
-            clickDelete: true,
-            placeholder: 'Tags',
-        });
 
         $.ajax({
             url: "/api/blog/get",
@@ -65,10 +56,53 @@
                     .parent().addClass("is-dirty");
 
                 if (typeof data.tags !== 'undefined') {
-                    data.tags.forEach(function(item) {
-                        $("#tags-input").tagEditor("addTag", item);
-                    });
+                    blog_tags = data.tags;
                 }
+
+
+                loading_dialog.showModal();
+                $.ajax({
+                    url: "/api/tags",
+                    type: "GET",
+                    success: function(data) {
+                        loading_dialog.close();
+                        if (data.status != 200) {
+                            err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
+                            snackbar.MaterialSnackbar.showSnackbar({
+                                message: "Failed to create blog. " + err_msg
+                            });
+                            return;
+                        }
+
+                        all_tags = Object.keys(data.tags)
+
+                        $("#tags-input").tagEditor("autocomplete", {
+                            delay: 0, // show suggestions immediately
+                            position: { collision: 'flip' }, // automatic menu position up/down
+                            source: all_tags,
+                        });
+
+                        $("#tags-input").tagEditor({
+                            autocomplete: {
+                                delay: 0, // show suggestions immediately
+                                position: { collision: 'flip' }, // automatic menu position up/down
+                                source: all_tags,
+                            },
+                            forceLowercase: false,
+                            clickDelete: true,
+                            placeholder: 'Tags',
+                            beforeTagSave: function(field, editor, tags, tag, val) {
+                                if(all_tags.indexOf(val) < 0) {
+                                    return false;
+                                }
+                            }
+                        });
+
+                        blog_tags.forEach(function(item) {
+                            $("#tags-input").tagEditor("addTag", item);
+                        });
+                    },
+                });
             }
         });
 

@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/jquery.tag-editor.css" />
 
 <script>
+    var all_tags = [];
     $(document).ready(function() {
         var snackbar = document.querySelector("#post-snackbar");
         var loading_dialog = document.querySelector("#loading-dialog");
@@ -20,15 +21,40 @@
             dialogPolyfill.registerDialog(loading_dialog);
         }
 
-        $("#tags-input").tagEditor({
-            autocomplete: {
-                delay: 0, // show suggestions immediately
-                position: { collision: 'flip' }, // automatic menu position up/down
-                source: [],
+        loading_dialog.showModal();
+
+        $.ajax({
+            url: "/api/tags",
+            type: "GET",
+            success: function(data) {
+                loading_dialog.close();
+                if (data.status != 200) {
+                    err_msg = "err" in data ? ("Error: " + data.err) : ("Status: " + data.status);
+                    snackbar.MaterialSnackbar.showSnackbar({
+                        message: "Failed to create blog. " + err_msg
+                    });
+                    return;
+                }
+
+                all_tags = Object.keys(data.tags)
+
+                $("#tags-input").tagEditor({
+                    autocomplete: {
+                        delay: 0, // show suggestions immediately
+                        position: { collision: 'flip' }, // automatic menu position up/down
+                        source: all_tags,
+                    },
+                    forceLowercase: false,
+                    clickDelete: true,
+                    placeholder: 'Tags',
+                    beforeTagSave: function(field, editor, tags, tag, val) {
+                        if(all_tags.indexOf(val) < 0) {
+                            return false;
+                        }
+                    },
+                });
+
             },
-            forceLowercase: false,
-            clickDelete: true,
-            placeholder: 'Tags',
         });
 
         $("#postform").submit(function(event) {
