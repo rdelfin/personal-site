@@ -154,6 +154,7 @@ def _get_blog_template(blog: Blog) -> Response:
             ),
             creation_date=f"{datetime.fromtimestamp(blog.creation_time)} UTC",
             modified_date=f"{datetime.fromtimestamp(blog.modification_time)} UTC",
+            tags=list(blog.tags),
         )
     except TemplateNotFound:
         abort(404)
