@@ -87,13 +87,19 @@
             {{ blog.teaser }}...
         </div>
         <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="/admin/blog/edit?path={{ key }}">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="/admin/blog/edit?path={{ key }}" id="edit-action-{{ key }}">
                 <i class="material-icons">create</i>
             </a>
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="edit-action-{{ key }}">
+                Edit blog <strong>{{ key }}</strong>
+            </div>
             <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--icon"
                id="delete-action-{{ key }}" href="#">
                 <i class="material-icons">delete</i>
             </button>
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="delete-action-{{ key }}">
+                Delete blog <strong>{{ key }}</strong>
+            </div>
         </div>
     </div>
     {% endfor %}
