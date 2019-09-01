@@ -39,6 +39,7 @@ def upload_image() -> Response:
 
 
 @bp.route("/image/list", methods=["GET"])
+@app_auth.authenticate
 def list_images() -> Response:
     return image_utils.list_images_template()
 
