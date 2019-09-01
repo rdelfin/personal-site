@@ -21,8 +21,8 @@ def get_tags() -> Response:
 
 
 @bp.route("/admin/tags/add", methods=["POST"])
-def add_tags() -> Response:
-    return tag_utils.add_tags_req(request.get_json())
+def add_tag() -> Response:
+    return tag_utils.add_tag_req(request.get_json())
 
 
 @bp.route("/admin/blog/create", methods=["POST"])

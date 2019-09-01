@@ -1,8 +1,11 @@
+import json
 from typing import Dict, Iterable, Any
 
 from flask import abort, render_template, send_file, Response
 from flask_json import json_response
+from google.protobuf.json_format import MessageToJson as ProtoBufToJson
 
+from iface.gen.blog_pb2 import Tag
 from storage import StorageFactory, StorageType
 from storage.interface import KeyNotFoundError
 
@@ -14,32 +17,30 @@ def _get_storage():
 def get_tags() -> Response:
     s = _get_storage()
 
-    try:
-        tags = s.get_blob("tags").decode('utf8').splitlines()
-    except KeyNotFoundError:
-        tags = []
+    tag_list = s.list_blobs("tags/")
 
-    return json_response(ok=True, tags=tags)
+    tags = [Tag.FromString(s.get_blob(tag_path)) for tag_path in tag_list]
+
+    return json_response(
+        ok=True, tags={tag.name: json.loads(ProtoBufToJson(tag)) for tag in tags}
+    )
 
 
-def add_tags_req(data: Dict[str, Any]) -> Response:
-    if 'tags' not in data:
-        return json_response(ok=False, err='A "tag" was not provided.', status=400)
+def add_tag_req(data: Dict[str, Any]) -> Response:
+    fields = ['name', 'image_path', 'description']
 
-    add_tags(data['tags'])
+    if not all(field in data.keys() for field in fields):
+        return json_response(
+            ok=False,
+            err='Not all required fields were provided in the request. (should '
+            f'contain {", ".join(fields)}',
+            status=400
+        )
+
+    add_tags(data['name'], data['image_path'], data['description'])
     return json_response(ok=True)
 
-def add_tags(tags: Iterable[str]):
+def add_tags(name: str, image_path: str, description: str):
     s = _get_storage()
-
-    try:
-        tag_set = set(s.get_blob("tags").decode('utf8').splitlines())
-    except KeyNotFoundError:
-        tag_set = set()
-
-    for tag in tags:
-        tag_set.add(tag)
-
-    tag_list = sorted(list(tag_set))
-
-    s.put_blob('tags', bytes("\n".join(tag_list) + "\n", "utf8"))
+    tag = Tag(name=name, image_path=image_path, description=description)
+    s.put_blob(f'tags/{name}.blob', tag.SerializeToString())
