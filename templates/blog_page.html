@@ -6,6 +6,14 @@
 
 {% block headElem %}
 <link rel="stylesheet" type="text/css" href="/static/css/pygments_code.css" />
+<style>
+div.codehilite {
+    /* Code blocks need to be horizontally scrollable */
+    overflow-x: scroll;
+    /* Codeblocks need a bit of padding */
+    padding: 0.5em;
+}
+</style>
 {% endblock %}
 
 {% block navbarId %}nav-blog{% endblock %}
