@@ -20,8 +20,9 @@
             loading_dialog.showModal();
 
             // Load up data
-            data = {
-                "path": $("input[name=path]").val(),
+            var new_path = $("input[name=path]").val();
+            post_data = {
+                "path": new_path,
                 "title": $("input[name=title]").val(),
                 "header-img": $("input[name=header-img]").val(),
                 "header-cap-strong": $("input[name=header-cap-strong]").val(),
@@ -32,7 +33,7 @@
             $.ajax({
                 url: "/api/admin/blog/create",
                 type: "POST",
-                data: JSON.stringify(data),
+                data: JSON.stringify(post_data),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data) {
@@ -45,7 +46,7 @@
                         return false;
                     }
 
-                    window.location.replace("/blog/post_" + data["path"]);
+                    window.location.replace("/blog/post_" + new_path);
                     return false;
                 },
             });
