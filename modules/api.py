@@ -21,6 +21,7 @@ def get_tags() -> Response:
 
 
 @bp.route("/admin/tags/add", methods=["POST"])
+@app_auth.authenticate
 def add_tag() -> Response:
     return tag_utils.add_tag_req(request.get_json())
 
