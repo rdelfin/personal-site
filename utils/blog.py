@@ -6,7 +6,7 @@ import json
 import markdown2
 import re
 import time
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from google.protobuf.json_format import MessageToJson as proto_to_json
 
@@ -53,6 +53,7 @@ def create_blog(data: Dict[str, Any]) -> Response:
         data["header-cap-rest"],
         data["teaser"],
         data["content"],
+        data["tags"],
     )
 
 def delete_single_blog(data: Dict[str, Any]) -> Response:
@@ -191,6 +192,7 @@ def _create_blog(
     header_caption_rest: str,
     teaser: str,
     content: str,
+    tags: List[str],
 ) -> Response:
     storage = StorageFactory.create(StorageType.S3)
     blog_path = f"blogs/{path}.blob"
@@ -212,6 +214,7 @@ def _create_blog(
         markdown_content=content,
         creation_time=ts,
         modification_time=ts,
+        tags=tags,
     )
 
     blob = blog.SerializeToString()
