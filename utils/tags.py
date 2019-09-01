@@ -62,3 +62,31 @@ def delete_tag_req(data: Dict[str, Any]) -> Response:
 
     s.delete_blob(tag_key)
     return json_response(ok=True)
+
+
+def update_tag_req(data: Dict[str, Any]) -> Response:
+    fields = ['name', 'image_path', 'description']
+
+    if not data or not all(field in data.keys() for field in fields):
+        return json_response(
+            ok=False,
+            err='Not all required fields were provided in the request. (should '
+            f'contain {", ".join(fields)})',
+            status=400
+        )
+
+    s = _get_storage()
+    path = f'tags/{data["name"]}.blob'
+    try:
+        blob = s.get_blob(path)
+    except KeyNotFoundError:
+        return json_response(
+            ok=False, err=f'The tag {data["name"]} was not found', status=404
+        )
+
+    tag = Tag.FromString(blob)
+    tag.image_path = data["image_path"]
+    tag.description = data["description"]
+
+    s.put_blob(path, tag.SerializeToString())
+    return json_response(ok=True)
