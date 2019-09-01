@@ -165,7 +165,10 @@ def _get_blog_list_template(blogs: Dict[str, Blog]) -> Response:
 
 def _list_blog_template(blogs: Dict[str, Blog]) -> Response:
     try:
-        return render_template("admin/list_blogs.html", blogs=blogs)
+        return render_template(
+            "admin/list_blogs.html",
+            blogs=sorted(blogs.items(), reverse=True, key=lambda t: t[1].creation_time),
+        )
     except TemplateNotFound:
         abort(404)
 

@@ -10,7 +10,7 @@
 {% block headElem %}
 <script>
     keys = [
-        {% for key in blogs.keys() %}"{{ key }}",
+        {% for key, _ in blogs %}"{{ key }}",
         {% endfor %}
     ];
     active_key = null;
@@ -27,7 +27,6 @@
         }
 
         keys.forEach(function (key, index) {
-            console.log("Registering key " + key)
             $("#delete-action-" + key).click(function() {
                 active_key = key;
                 $("#dialog-text").text("Are you sure you want to delete the blog titled \"" + active_key + "\"?")
@@ -76,7 +75,7 @@
         </div>
     </dialog>
 
-    {% for key, blog in blogs.items() %}
+    {% for key, blog in blogs %}
     <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media">
             <img class="article-image" src="{{ blog.header_image.path }}" border="0" alt="" />
