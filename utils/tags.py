@@ -26,6 +26,15 @@ def get_tags() -> Response:
     )
 
 
+def list_tag_req() -> Response:
+    s = _get_storage()
+
+    tag_list = s.list_blobs('tags/')
+    tags = [Tag.FromString(s.get_blob(tag_path)) for tag_path in tag_list]
+
+    return render_template("admin/list_tags.html", tags=tags)
+
+
 def add_tag_req(data: Dict[str, Any]) -> Response:
     fields = ['name', 'image_path', 'description']
 

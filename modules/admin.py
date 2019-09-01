@@ -3,6 +3,7 @@ from flask import Blueprint, Response, render_template
 from utils import auth as app_auth
 from utils import blog as blog_utils
 from utils import images as image_utils
+from utils import tags as tag_utils
 
 
 bp = Blueprint("admin", __name__)
@@ -47,6 +48,12 @@ def list_images() -> Response:
 @app_auth.authenticate
 def create_tag() -> Response:
     return render_template("admin/create_tag.html")
+
+
+@bp.route("/tags", methods=["GET"])
+@app_auth.authenticate
+def list_tag() -> Response:
+    return tag_utils.list_tag_req()
 
 
 @bp.route("/login", methods=["GET"])
