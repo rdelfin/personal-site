@@ -55,6 +55,11 @@ def create_tag() -> Response:
 def list_tag() -> Response:
     return tag_utils.list_tag_req()
 
+@bp.route("/tags/edit", methods=["GET"])
+@app_auth.authenticate
+def edit_tag() -> Response:
+    return render_template("admin/edit_tag.html")
+
 
 @bp.route("/login", methods=["GET"])
 def login() -> Response:
