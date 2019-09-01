@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Iterable, Any
 
 from flask import abort, render_template, send_file, Response
 from flask_json import json_response
@@ -22,22 +22,24 @@ def get_tags() -> Response:
     return json_response(ok=True, tags=tags)
 
 
-def add_tag_req(data: Dict[str, Any]) -> Response:
-    if 'tag' not in data:
+def add_tags_req(data: Dict[str, Any]) -> Response:
+    if 'tags' not in data:
         return json_response(ok=False, err='A "tag" was not provided.', status=400)
 
-    add_tag(data['tag'])
+    add_tags(data['tags'])
     return json_response(ok=True)
 
-def add_tag(tag: str):
+def add_tags(tags: Iterable[str]):
     s = _get_storage()
 
     try:
-        tags = s.get_blob("tags").decode('utf8').splitlines()
+        tag_set = set(s.get_blob("tags").decode('utf8').splitlines())
     except KeyNotFoundError:
-        tags = []
+        tag_set = set()
 
-    tags.append(tag)
-    tags = sorted(tags)
+    for tag in tags:
+        tag_set.add(tag)
 
-    s.put_blob('tags', bytes("\n".join(tags) + "\n", "utf8"))
+    tag_list = sorted(list(tag_set))
+
+    s.put_blob('tags', bytes("\n".join(tag_list) + "\n", "utf8"))
