@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='blog.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\nblog.proto\"s\n\x07\x45lement\x12\"\n\x04type\x18\x01 \x01(\x0e\x32\x14.Element.ElementType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\"3\n\x0b\x45lementType\x12\r\n\tPARAGRAPH\x10\x00\x12\n\n\x06HEADER\x10\x01\x12\t\n\x05IMAGE\x10\x02\"I\n\x0bHeaderImage\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x16\n\x0e\x63\x61ption_strong\x18\x02 \x01(\t\x12\x14\n\x0c\x63\x61ption_cont\x18\x03 \x01(\t\"\xad\x01\n\x04\x42log\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\"\n\x0cheader_image\x18\x02 \x01(\x0b\x32\x0c.HeaderImage\x12\x17\n\x05\x65lems\x18\x03 \x03(\x0b\x32\x08.Element\x12\x0e\n\x06teaser\x18\x04 \x01(\t\x12\x18\n\x10markdown_content\x18\x05 \x01(\t\x12\x15\n\rcreation_time\x18\x06 \x01(\x03\x12\x19\n\x11modification_time\x18\x07 \x01(\x03\x62\x06proto3')
+  serialized_pb=_b('\n\nblog.proto\"s\n\x07\x45lement\x12\"\n\x04type\x18\x01 \x01(\x0e\x32\x14.Element.ElementType\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\"3\n\x0b\x45lementType\x12\r\n\tPARAGRAPH\x10\x00\x12\n\n\x06HEADER\x10\x01\x12\t\n\x05IMAGE\x10\x02\"I\n\x0bHeaderImage\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x16\n\x0e\x63\x61ption_strong\x18\x02 \x01(\t\x12\x14\n\x0c\x63\x61ption_cont\x18\x03 \x01(\t\"\xbb\x01\n\x04\x42log\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\"\n\x0cheader_image\x18\x02 \x01(\x0b\x32\x0c.HeaderImage\x12\x17\n\x05\x65lems\x18\x03 \x03(\x0b\x32\x08.Element\x12\x0e\n\x06teaser\x18\x04 \x01(\t\x12\x18\n\x10markdown_content\x18\x05 \x01(\t\x12\x15\n\rcreation_time\x18\x06 \x01(\x03\x12\x19\n\x11modification_time\x18\x07 \x01(\x03\x12\x0c\n\x04tags\x18\x08 \x03(\tb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -192,6 +192,13 @@ _BLOG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='tags', full_name='Blog.tags', index=7,
+      number=8, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -205,7 +212,7 @@ _BLOG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=207,
-  serialized_end=380,
+  serialized_end=394,
 )
 
 _ELEMENT.fields_by_name['type'].enum_type = _ELEMENT_ELEMENTTYPE
