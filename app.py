@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask, Response, abort, render_template, request, send_file, send_from_directory
 from flask_sslify import SSLify
 from flask_json import FlaskJSON
@@ -13,6 +15,11 @@ json = FlaskJSON(app)
 app.register_blueprint(admin.bp, url_prefix="/admin")
 app.register_blueprint(api.bp, url_prefix="/api")
 app.register_blueprint(blog.bp, url_prefix="/blog")
+
+
+@app.context_processor
+def inject_now():
+    return {'now': datetime.utcnow()}
 
 
 @app.route("/static/<path:path>")
