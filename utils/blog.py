@@ -11,6 +11,7 @@ from typing import Any, Dict, List
 from google.protobuf.json_format import MessageToJson as proto_to_json
 
 from iface.gen.blog_pb2 import Blog, HeaderImage
+from utils import tags as tag_utils
 from storage import StorageFactory, StorageType
 from storage.interface import KeyNotFoundError
 
@@ -87,6 +88,9 @@ def update_blog(data: Dict[str, Any]) -> Response:
         return json_response(
             ok=False, err=f"The blog {data['path']} was not found", status=404
         )
+
+    # Make sure any new tags get added
+    tag_utils.add_tags(data['tags'])
 
     blog = Blog.FromString(blob)
     blog.modification_time = int(time.time())
@@ -208,6 +212,9 @@ def _create_blog(
         return json_response(
             ok=False, err=f"Blog titled {path} already exists", status=400
         )
+
+    # Make sure any new tags get added
+    tag_utils.add_tags(tags)
 
     ts = int(time.time())
     blog = Blog(
