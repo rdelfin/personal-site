@@ -8,6 +8,10 @@
 {% block navbarId %}nav-admin{% endblock %}
 
 {% block headElem %}
+<script type="text/javascript" src="/static/js/jquery.caret.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tag-editor.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/jquery.tag-editor.css" />
+
 <script>
     $(document).ready(function() {
         var snackbar = document.querySelector("#post-snackbar");
@@ -21,6 +25,17 @@
 
         $("#path-input").val(path);
         loading_dialog.showModal();
+
+        $("#tags-input").tagEditor({
+            autocomplete: {
+                delay: 0, // show suggestions immediately
+                position: { collision: 'flip' }, // automatic menu position up/down
+                source: [],
+            },
+            forceLowercase: false,
+            clickDelete: true,
+            placeholder: 'Tags',
+        });
 
         $.ajax({
             url: "/api/blog/get",
@@ -48,6 +63,12 @@
                 $("#teaser-input").val(data["teaser"]).parent().addClass("is-dirty");
                 $("#content-input").val(data["markdownContent"])
                     .parent().addClass("is-dirty");
+
+                if (typeof data.tags !== 'undefined') {
+                    data.tags.forEach(function(item) {
+                        $("#tags-input").tagEditor("addTag", item);
+                    });
+                }
             }
         });
 
@@ -64,6 +85,7 @@
                 "header-cap-rest": $("input[name=header-cap-rest]").val(),
                 "teaser": $("input[name=teaser]").val(),
                 "content": $("textarea[name=content]").val(),
+                "tags": $("#tags-input").tagEditor('getTags')[0].tags,
             }
             $.ajax({
                 url: "/api/admin/blog/update",
@@ -150,6 +172,10 @@
           <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
             <textarea class="mdl-textfield__input" type="text" name="content" id="content-input" rows= "3"></textarea>
             <label class="mdl-textfield__label" for="content-input">Content</label>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" name="tags" id="tags-input" rows= "3"></textarea>
           </div>
 
           <div class="mdl-cell mdl-cell--12-col">

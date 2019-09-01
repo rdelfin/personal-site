@@ -71,6 +71,7 @@ def update_blog(data: Dict[str, Any]) -> Response:
         'header-cap-rest',
         'teaser',
         'content',
+        'tags',
     ]
 
     if not all(k in data for k in data_keys):
@@ -95,6 +96,11 @@ def update_blog(data: Dict[str, Any]) -> Response:
     blog.header_image.caption_cont = data['header-cap-rest']
     blog.teaser = data['teaser']
     blog.markdown_content = data['content']
+
+    for _ in range(len(blog.tags)):
+        blog.tags.pop()
+    for tag in data['tags']:
+        blog.tags.append(tag)
 
     s.put_blob(path, blog.SerializeToString())
     return json_response(ok=True)
