@@ -44,3 +44,21 @@ def add_tags(name: str, image_path: str, description: str):
     s = _get_storage()
     tag = Tag(name=name, image_path=image_path, description=description)
     s.put_blob(f'tags/{name}.blob', tag.SerializeToString())
+
+
+def delete_tag_req(data: Dict[str, Any]) -> Response:
+    if "name" not in data:
+        return json_response(
+            ok=False, err='The request does not contain a "name" field.', status=400
+        )
+
+    tag_key = f'tags/{data["name"]}.blob'
+    s = _get_storage()
+    tag_keys = s.list_blobs(tag_key)
+    if not any(key == tag_key for key in tag_keys):
+        return json_response(
+            ok=False, err='The tag name specified does not exist.', status=404
+        )
+
+    s.delete_blob(tag_key)
+    return json_response(ok=True)

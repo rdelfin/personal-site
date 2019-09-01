@@ -26,6 +26,12 @@ def add_tag() -> Response:
     return tag_utils.add_tag_req(request.get_json())
 
 
+@bp.route("/admin/tags/delete", methods=["POST"])
+@app_auth.authenticate
+def delete_tag() -> Response:
+    return tag_utils.delete_tag_req(request.get_json())
+
+
 @bp.route("/admin/blog/create", methods=["POST"])
 @app_auth.authenticate
 def create_blog_post() -> Response:
