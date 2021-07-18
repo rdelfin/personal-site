@@ -6,4 +6,4 @@ Flask-SSLify==0.1.5
 markdown2==2.4.0
 Flask-JSON==0.3.4
 bcrypt==3.1.7
-Pygments==2.3.0
+Pygments==2.7.4
