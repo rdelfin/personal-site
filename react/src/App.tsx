@@ -1,8 +1,10 @@
-import React from 'react';
-import Header from './Header';
+/**
+ * @format
+ */
+
+import React from "react";
+import Header from "./Header";
 
 export default function App() {
-  return (
-    <Header />
-  );
+  return <Header />;
 }

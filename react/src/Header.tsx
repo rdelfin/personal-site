@@ -1,34 +1,38 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
-import MailIcon from '@material-ui/icons/Mail';
-import FolderIcon from '@material-ui/icons/Folder';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+/**
+ * @format
+ */
+
+import React from "react";
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import HomeIcon from "@material-ui/icons/Home";
+import MailIcon from "@material-ui/icons/Mail";
+import FolderIcon from "@material-ui/icons/Folder";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -36,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -45,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -55,24 +59,24 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -82,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {}
 
-const Header : React.FunctionComponent<Props> = props => {
+const Header: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -130,12 +134,22 @@ const Header : React.FunctionComponent<Props> = props => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </div>
         <Divider />
         <List>
-          {[['Home', <HomeIcon />], ['Projects', <FolderIcon />], ['Resume', <AssignmentIndIcon />], ['Contact', <MailIcon />], ['Blog', <ImportContactsIcon />]].map((elem) => (
+          {[
+            ["Home", <HomeIcon />],
+            ["Projects", <FolderIcon />],
+            ["Resume", <AssignmentIndIcon />],
+            ["Contact", <MailIcon />],
+            ["Blog", <ImportContactsIcon />],
+          ].map((elem) => (
             <ListItem button key={elem[0] as string}>
               <ListItemIcon>{elem[1]}</ListItemIcon>
               <ListItemText primary={elem[0]} />
@@ -152,6 +166,6 @@ const Header : React.FunctionComponent<Props> = props => {
       </main>
     </div>
   );
-}
+};
 
 export default Header;
