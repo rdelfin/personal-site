@@ -26,6 +26,7 @@ import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 
 const drawerWidth = 240;
+const headerHeight = 100;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+    marginTop: headerHeight,
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
