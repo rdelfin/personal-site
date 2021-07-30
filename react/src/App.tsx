@@ -8,6 +8,7 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
 import Home from "./Home";
 import Projects from "./Projects";
+import Resume from "./Resume";
 
 export default function App() {
   return (
@@ -15,6 +16,9 @@ export default function App() {
       <Switch>
         <Route path="/projects">
           <Projects />
+        </Route>
+        <Route path="/resume">
+          <Resume />
         </Route>
         <Route path="/">
           <Home />

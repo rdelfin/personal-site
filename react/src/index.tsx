@@ -10,6 +10,9 @@ import "fontsource-roboto";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 ReactDOM.render(
   <React.StrictMode>
