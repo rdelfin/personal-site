@@ -6,10 +6,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -60,7 +58,11 @@ export default function App() {
                 </Typography>
               </Grid>
               <Grid item xs={6}>
-                <img src="/home01.jpg" className={classes.halfImage} />
+                <img
+                  src="/home01.jpg"
+                  className={classes.halfImage}
+                  alt="Me at the 2017 FRC Houston Championship"
+                />
               </Grid>
             </Grid>
           </CardContent>
