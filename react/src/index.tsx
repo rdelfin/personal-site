@@ -9,11 +9,14 @@ import "./index.css";
 import "fontsource-roboto";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
-    <App />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );

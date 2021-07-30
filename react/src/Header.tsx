@@ -4,6 +4,7 @@
 
 import React from "react";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -146,16 +147,18 @@ const Header: React.FunctionComponent<Props> = (props) => {
         <Divider />
         <List>
           {[
-            ["Home", <HomeIcon />],
-            ["Projects", <FolderIcon />],
-            ["Resume", <AssignmentIndIcon />],
-            ["Contact", <MailIcon />],
-            ["Blog", <ImportContactsIcon />],
+            ["Home", "/", <HomeIcon />],
+            ["Projects", "/projects", <FolderIcon />],
+            ["Resume", "/resume", <AssignmentIndIcon />],
+            ["Contact", "/contact", <MailIcon />],
+            ["Blog", "/blog", <ImportContactsIcon />],
           ].map((elem) => (
-            <ListItem button key={elem[0] as string}>
-              <ListItemIcon>{elem[1]}</ListItemIcon>
-              <ListItemText primary={elem[0]} />
-            </ListItem>
+            <Link to={elem[1] as string}>
+              <ListItem button key={"menu-" + elem[0]}>
+                <ListItemIcon>{elem[2]}</ListItemIcon>
+                <ListItemText primary={elem[0]} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
