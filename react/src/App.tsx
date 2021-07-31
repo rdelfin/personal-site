@@ -9,6 +9,7 @@ import Header from "./Header";
 import Home from "./Home";
 import Projects from "./Projects";
 import Resume from "./Resume";
+import Contact from "./Contact";
 
 export default function App() {
   return (
@@ -19,6 +20,9 @@ export default function App() {
         </Route>
         <Route path="/resume">
           <Resume />
+        </Route>
+        <Route path="/contact">
+          <Contact />
         </Route>
         <Route path="/">
           <Home />
