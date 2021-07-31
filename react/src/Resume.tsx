@@ -25,18 +25,8 @@ const useStyles = makeStyles({
   },
 });
 
-export interface State {
-  numPages: number;
-  pageNumber: number;
-}
-
 export default function Resume() {
-  const [numPages, setNumPages] = useState<number | null>(null);
   const classes = useStyles();
-
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
-    setNumPages(numPages as number);
-  }
 
   return (
     <Container maxWidth="md">
@@ -54,10 +44,7 @@ export default function Resume() {
               </Button>
             </Grid>
             <Grid item xs={12}>
-              <Document
-                file="/documents/resume.pdf"
-                onLoadSuccess={onDocumentLoadSuccess}
-              >
+              <Document file="/documents/resume.pdf">
                 <Page pageNumber={1} scale={1.3} />
               </Document>
             </Grid>
