@@ -10,6 +10,7 @@ import Home from "./Home";
 import Projects from "./Projects";
 import Resume from "./Resume";
 import Contact from "./Contact";
+import BlogHome from "./BlogHome";
 
 export default function App() {
   return (
@@ -23,6 +24,9 @@ export default function App() {
         </Route>
         <Route path="/contact">
           <Contact />
+        </Route>
+        <Route path="/blog">
+          <BlogHome />
         </Route>
         <Route path="/">
           <Home />
