@@ -1,0 +1,15 @@
+syntax = "proto3";
+package api;
+
+service PersonalSiteApi {
+  rpc Echo(EchoRequest) returns (EchoResponse);
+}
+
+message EchoRequest {
+  string msg = 1;
+}
+
+message EchoResponse {
+  string echo = 1;
+}
+
