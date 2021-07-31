@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import SendIcon from "@material-ui/icons/Send";
@@ -34,6 +35,11 @@ export default function Contact() {
     <Container maxWidth="md">
       <Card className={classes.root}>
         <CardHeader title="Contact" />
+        <CardMedia
+          className={classes.media}
+          image="/contact-image.jpg"
+          title="The field"
+        />
         <CardContent>
           <form className={classes.root} noValidate autoComplete="off">
             <Grid container spacing={3}>
