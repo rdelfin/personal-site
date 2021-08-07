@@ -1,6 +1,7 @@
 use crate::protos::api::{
     personal_site_api_server::{PersonalSiteApi, PersonalSiteApiServer},
-    {EchoRequest, EchoResponse},
+    GetProjectRequest, GetProjectResponse, ListProjectsRequest, ListProjectsResponse,
+    SendEmailRequest, SendEmailResponse,
 };
 use anyhow::Result;
 use log::{error, info};
@@ -13,21 +14,27 @@ pub struct ApiImpl {}
 
 #[tonic::async_trait]
 impl PersonalSiteApi for ApiImpl {
-    async fn echo(&self, request: Request<EchoRequest>) -> Result<Response<EchoResponse>, Status> {
-        info!(
-            "Got a request from {:?}: {:?}",
-            request.remote_addr(),
-            request.get_ref()
-        );
-        let reply = EchoResponse {
-            echo: format!(
-                "{}, {}, {}",
-                request.get_ref().msg,
-                request.get_ref().msg,
-                request.get_ref().msg
-            ),
-        };
-        Ok(Response::new(reply))
+    async fn send_email(
+        &self,
+        request: Request<SendEmailRequest>,
+    ) -> Result<Response<SendEmailResponse>, Status> {
+        Err(Status::unimplemented("Send email hasn't been implemented"))
+    }
+
+    async fn list_projects(
+        &self,
+        request: Request<ListProjectsRequest>,
+    ) -> Result<Response<ListProjectsResponse>, Status> {
+        Err(Status::unimplemented(
+            "project list hasn't been implemented",
+        ))
+    }
+
+    async fn get_project(
+        &self,
+        request: Request<GetProjectRequest>,
+    ) -> Result<Response<GetProjectResponse>, Status> {
+        Err(Status::unimplemented("get project hasn't been implemented"))
     }
 }
 
