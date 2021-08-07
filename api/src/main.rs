@@ -1,16 +1,30 @@
-use crate::protos::api::{
-    personal_site_api_server::{PersonalSiteApi, PersonalSiteApiServer},
-    GetProjectRequest, GetProjectResponse, ListProjectsRequest, ListProjectsResponse,
-    SendEmailRequest, SendEmailResponse,
+use crate::{
+    db::DBManager,
+    protos::api::{
+        personal_site_api_server::{PersonalSiteApi, PersonalSiteApiServer},
+        GetProjectRequest, GetProjectResponse, ListProjectsRequest, ListProjectsResponse,
+        SendEmailRequest, SendEmailResponse,
+    },
 };
 use anyhow::Result;
 use log::{error, info};
+use tokio::sync::Mutex;
 use tonic::{transport::Server, Request, Response, Status};
 
+mod db;
 mod protos;
 
-#[derive(Default)]
-pub struct ApiImpl {}
+pub struct ApiImpl {
+    db: Mutex<DBManager>,
+}
+
+impl ApiImpl {
+    async fn new() -> anyhow::Result<Self> {
+        Ok(ApiImpl {
+            db: Mutex::new(DBManager::new().await?),
+        })
+    }
+}
 
 #[tonic::async_trait]
 impl PersonalSiteApi for ApiImpl {
@@ -51,7 +65,7 @@ async fn main() -> Result<()> {
 
 async fn do_main() -> Result<()> {
     let addr = "[::1]:50051".parse().unwrap();
-    let greeter = ApiImpl::default();
+    let greeter = ApiImpl::new().await?;
 
     info!("Echo server listening on {}", addr);
 
