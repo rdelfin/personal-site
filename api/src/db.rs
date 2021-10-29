@@ -1,4 +1,17 @@
+use crate::protos::api::{Project, ProjectSummary};
 use sqlx::{sqlite::SqliteConnection, Connection};
+use std::convert::TryInto;
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum Error {
+    #[error("SQLX Error")]
+    SqlxError(#[from] sqlx::Error),
+    #[error("Project with ID {0} doesn't exist")]
+    ProjectNotFound(i64),
+}
+
+pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 pub struct DBManager {
     conn: SqliteConnection,
@@ -11,14 +24,36 @@ impl DBManager {
         })
     }
 
-    pub async fn sample_query(&mut self) -> Result<(), sqlx::Error> {
-        let row: (i64,) = sqlx::query_as("SELECT $1")
-            .bind(150_i64)
-            .fetch_one(&mut self.conn)
-            .await?;
+    pub async fn list_projects(&mut self) -> Result<Vec<ProjectSummary>> {
+        let rows: Vec<(i64, String, String, String)> =
+            sqlx::query_as("SELECT id, title, image_url, short_desc FROM Project")
+                .fetch_all(&mut self.conn)
+                .await?;
 
-        println!("Got query: {:?}", row);
+        Ok(rows
+            .into_iter()
+            .map(|(id, title, image_url, short_desc)| ProjectSummary {
+                id: id.try_into().unwrap(),
+                title,
+                image_url,
+                short_desc,
+            })
+            .collect())
+    }
 
-        Ok(())
+    pub async fn get_project(&mut self, id: i64) -> Result<Project> {
+        let row: Option<(i64, String, String, String)> =
+            sqlx::query_as("SELECT id, title, image_url, content FROM Project WHERE id=$1")
+                .bind(id)
+                .fetch_optional(&mut self.conn)
+                .await?;
+        let row = row.ok_or_else(|| Error::ProjectNotFound(id))?;
+
+        Ok(Project {
+            id: row.0.try_into().unwrap(),
+            title: row.1,
+            image_url: row.2,
+            content_md: row.3,
+        })
     }
 }
