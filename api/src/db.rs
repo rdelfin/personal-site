@@ -2,6 +2,7 @@ use crate::protos::api::{Project, ProjectSummary};
 use sqlx::{sqlite::SqliteConnection, Connection};
 use std::convert::TryInto;
 use thiserror::Error;
+use tonic::Status;
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -11,6 +12,15 @@ pub enum Error {
     ProjectNotFound(i64),
 }
 
+impl From<Error> for Status {
+    fn from(e: Error) -> Self {
+        match e {
+            Error::ProjectNotFound(_) => Status::failed_precondition(format!("{:?}", e)),
+            Error::SqlxError(_) => Status::internal(format!("{:?}", e)),
+        }
+    }
+}
+
 pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 pub struct DBManager {
@@ -18,7 +28,7 @@ pub struct DBManager {
 }
 
 impl DBManager {
-    pub async fn new() -> Result<Self, sqlx::Error> {
+    pub async fn new() -> Result<Self> {
         Ok(DBManager {
             conn: SqliteConnection::connect("sqlite::memory:").await?,
         })
