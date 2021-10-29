@@ -30,7 +30,7 @@ pub struct DBManager {
 impl DBManager {
     pub async fn new() -> Result<Self> {
         Ok(DBManager {
-            conn: SqliteConnection::connect("sqlite::memory:").await?,
+            conn: SqliteConnection::connect("sqlite://dev.db").await?,
         })
     }
 
