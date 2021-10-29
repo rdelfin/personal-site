@@ -8,6 +8,7 @@ use crate::{
 };
 use anyhow::Result;
 use log::{error, info};
+use std::convert::TryInto;
 use tokio::sync::Mutex;
 use tonic::{transport::Server, Request, Response, Status};
 
@@ -30,25 +31,32 @@ impl ApiImpl {
 impl PersonalSiteApi for ApiImpl {
     async fn send_email(
         &self,
-        request: Request<SendEmailRequest>,
+        _request: Request<SendEmailRequest>,
     ) -> Result<Response<SendEmailResponse>, Status> {
         Err(Status::unimplemented("Send email hasn't been implemented"))
     }
 
     async fn list_projects(
         &self,
-        request: Request<ListProjectsRequest>,
+        _: Request<ListProjectsRequest>,
     ) -> Result<Response<ListProjectsResponse>, Status> {
-        Err(Status::unimplemented(
-            "project list hasn't been implemented",
-        ))
+        let projects = self.db.lock().await.list_projects().await?;
+        Ok(Response::new(ListProjectsResponse { projects }))
     }
 
     async fn get_project(
         &self,
         request: Request<GetProjectRequest>,
     ) -> Result<Response<GetProjectResponse>, Status> {
-        Err(Status::unimplemented("get project hasn't been implemented"))
+        let project = self
+            .db
+            .lock()
+            .await
+            .get_project(request.into_inner().id.try_into().unwrap())
+            .await?;
+        Ok(Response::new(GetProjectResponse {
+            project: Some(project),
+        }))
     }
 }
 
