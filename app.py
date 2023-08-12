@@ -67,6 +67,11 @@ def twitcher_project():
     return render_template("projects/twitcher.html")
 
 
+@app.route("/.well-known/atproto-did")
+def atproto():
+    return send_file("static/atproto-did")
+
+
 # run the app.
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
